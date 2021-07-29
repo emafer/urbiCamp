@@ -5,6 +5,7 @@ namespace app\controllers;
 use Yii;
 use app\models\Fascicolo;
 use app\search\FascicoloSearch;
+use yii\base\BaseObject;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -36,7 +37,7 @@ class FascicoloController extends Controller
      */
     public function actionIndex()
     {
-        $searchModel = new FascicoloSearch();
+        $searchModel = new Fascicolo();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -45,6 +46,19 @@ class FascicoloController extends Controller
         ]);
     }
 
+    /**
+     * Lists all Fascicolo models in archivio.
+     * @return mixed
+     */
+    public function actionLista()
+    {
+        $searchModel = new FascicoloSearch(['faldone_id' => Yii::$app->request->get('faldone')] );
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        return $this->render('index', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
     /**
      * Displays a single Fascicolo model.
      * @param integer $id
@@ -88,12 +102,6 @@ class FascicoloController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) ) {
-           $immagini = UploadedFile::getInstances($model, 'immagines');
-            foreach ($immagini as $key => $file) {
-                $file->saveAs(PATHURBI .'/uploads/'. $file->baseName . '.' . $file->extension);//Upload files to server
-
-            }
-die;
             $model->save();
             return $this->redirect(['view', 'id' => $model->id]);
         }

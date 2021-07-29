@@ -27,8 +27,15 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
             'descrizione',
             'abbr',
-
-            ['class' => 'yii\grid\ActionColumn'],
+            [
+                'class' => 'yii\grid\ActionColumn',
+                'template' =>'{view} {update} {delete} {lista}',
+            'buttons' => [
+                'lista' => function ($url, $model, $key) {
+                    return Html::a('<i class="bi bi-list-ul"></i>aa', ['faldone/lista', 'fondo'=>$model->id]);
+                },
+            ]
+            ],
         ],
     ]); ?>
 

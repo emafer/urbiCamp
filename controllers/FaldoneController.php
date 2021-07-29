@@ -2,12 +2,10 @@
 
 namespace app\controllers;
 
-use app\models\Immagine;
-use app\query\FaldoneImmagineQuery;
-use app\query\ImmagineQuery;
 use Yii;
 use app\models\Faldone;
 use app\search\FaldoneSearch;
+use yii\base\BaseObject;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -44,6 +42,22 @@ class FaldoneController extends Controller
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'archivio_id' => ''
+        ]);
+    }
+    /**
+     * Lists all Faldone models in archivio.
+     * @return mixed
+     */
+    public function actionLista()
+    {
+        $archivio_id = Yii::$app->request->get('fondo');
+        $searchModel = new FaldoneSearch(['archivio_id' => $archivio_id] );
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        return $this->render('index', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+            'archivio_id' => $archivio_id
         ]);
     }
 
@@ -68,7 +82,11 @@ class FaldoneController extends Controller
      */
     public function actionCreate()
     {
-        $model = new Faldone();
+        if (Yii::$app->request->get('archivio_id')) {
+            $model = new Faldone(['archivio_id' => Yii::$app->request->get('archivio_id')]);
+        } else{
+            $model = new Faldone();
+        }
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);

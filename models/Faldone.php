@@ -43,7 +43,7 @@ class Faldone extends \yii\db\ActiveRecord
             [['archivio_id'], 'integer'],
             [['descrizione', 'note'], 'string', 'max' => 255],
             [['classificazione'], 'string', 'max' => 15],
-            [['archivio_id'], 'exist', 'skipOnError' => true, 'targetClass' => Archivio::className(), 'targetAttribute' => ['archivio_id' => 'id']],
+            [['archivio_id'], 'exist', 'skipOnError' => true, 'targetClass' => Archivio::class, 'targetAttribute' => ['archivio_id' => 'id']],
         ];
     }
 
@@ -54,7 +54,7 @@ class Faldone extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'archivio_id' => 'Archivio ID',
+            'archivio_id' =>'Fondo',
             'archivio.abbr' => 'Fondo',
             'descrizione' => 'Descrizione',
             'note' => 'Note',
@@ -69,7 +69,7 @@ class Faldone extends \yii\db\ActiveRecord
      */
     public function getArchivio()
     {
-        return $this->hasOne(Archivio::className(), ['id' => 'archivio_id']);
+        return $this->hasOne(Archivio::class, ['id' => 'archivio_id']);
     }
 
     /**
@@ -95,9 +95,9 @@ class Faldone extends \yii\db\ActiveRecord
      *
      * @return \yii\db\ActiveQuery|FascicoloQuery
      */
-    public function getFascicolos()
+    public function getFascicoli()
     {
-        return $this->hasMany(Fascicolo::className(), ['faldone_id' => 'id']);
+        return $this->hasMany(Fascicolo::class, ['faldone_id' => 'id']);
     }
 
     /**

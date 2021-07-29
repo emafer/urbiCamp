@@ -56,7 +56,7 @@ class Archivio extends \yii\db\ActiveRecord
      */
     public function getFaldones()
     {
-        return $this->hasMany(Faldone::className(), ['archivio_id' => 'id']);
+        return $this->hasMany(Faldone::class, ['archivio_id' => 'id']);
     }
 
     /**

@@ -10,9 +10,10 @@ use yii\widgets\ActiveForm;
 
 <div class="faldone-form">
 
-    <?php $form = ActiveForm::begin(); ?>
+    <?php $form = ActiveForm::begin();
+    $items = \yii\helpers\ArrayHelper::map(\app\models\Archivio::find()->all(), 'id', 'descrizione');?>
 
-    <?= $form->field($model, 'archivio_id')->textInput() ?>
+    <?= $form->field($model, 'archivio_id')->dropDownList($items, ['placeholder' =>'']) ?>
 
     <?= $form->field($model, 'descrizione')->textInput(['maxlength' => true]) ?>
 
