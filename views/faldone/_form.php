@@ -15,11 +15,12 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'archivio_id')->dropDownList($items, ['placeholder' =>'']) ?>
 
+    <?= $form->field($model, 'classificazione')->textInput(['maxlength' => true]) ?>
+
     <?= $form->field($model, 'descrizione')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'note')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'classificazione')->textInput(['maxlength' => true]) ?>
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>

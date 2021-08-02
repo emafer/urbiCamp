@@ -2,7 +2,9 @@
 
 namespace app\models;
 
+use Faker\Provider\DateTime;
 use Yii;
+use yii\helpers\Html;
 
 /**
  * This is the model class for table "anagrafica".
@@ -16,17 +18,19 @@ use Yii;
  * @property string|null $morto_il
  * @property string|null $secondo_nome
  * @property int|null $morto_shoah
+ * @property string|null $patronimico
+ * @property string|null $matronimico
  *
  * @property Comune $natoA
  * @property Comune $mortoA
- * @property Destinatari[] $destinataris
+ * @property Destinatari[] $destinatari
  * @property Documento[] $documentos
  * @property Incopia[] $incopias
  * @property Documento[] $documentos0
  * @property Interessati[] $interessatis
  * @property Documento[] $documentos1
  * @property Internato $internato
- * @property Mittenti[] $mittentis
+ * @property Mittenti[] $mittenti
  * @property Documento[] $documentos2
  */
 class Anagrafica extends \yii\db\ActiveRecord
@@ -47,10 +51,10 @@ class Anagrafica extends \yii\db\ActiveRecord
         return [
             [['nato_a_id', 'morto_a_id', 'morto_shoah'], 'integer'],
             [['cognome'], 'required'],
-            [['nato_il', 'morto_il'], 'safe'],
+            [['nato_il', 'morto_il', 'patronimico', 'matronimico'], 'safe'],
             [['cognome', 'nome', 'secondo_nome'], 'string', 'max' => 255],
-            [['nato_a_id'], 'exist', 'skipOnError' => true, 'targetClass' => Comune::className(), 'targetAttribute' => ['nato_a_id' => 'id']],
-            [['morto_a_id'], 'exist', 'skipOnError' => true, 'targetClass' => Comune::className(), 'targetAttribute' => ['morto_a_id' => 'id']],
+            [['nato_a_id'], 'exist', 'skipOnError' => true, 'targetClass' => Comune::class, 'targetAttribute' => ['nato_a_id' => 'id']],
+            [['morto_a_id'], 'exist', 'skipOnError' => true, 'targetClass' => Comune::class, 'targetAttribute' => ['morto_a_id' => 'id']],
         ];
     }
 
@@ -79,7 +83,7 @@ class Anagrafica extends \yii\db\ActiveRecord
      */
     public function getNatoA()
     {
-        return $this->hasOne(Comune::className(), ['id' => 'nato_a_id']);
+        return $this->hasOne(Comune::class, ['id' => 'nato_a_id']);
     }
 
     /**
@@ -89,7 +93,7 @@ class Anagrafica extends \yii\db\ActiveRecord
      */
     public function getMortoA()
     {
-        return $this->hasOne(Comune::className(), ['id' => 'morto_a_id']);
+        return $this->hasOne(Comune::class, ['id' => 'morto_a_id']);
     }
 
     /**
@@ -99,7 +103,7 @@ class Anagrafica extends \yii\db\ActiveRecord
      */
     public function getDestinataris()
     {
-        return $this->hasMany(Destinatari::className(), ['anagrafica_id' => 'id']);
+        return $this->hasMany(Destinatari::class, ['anagrafica_id' => 'id']);
     }
 
     /**
@@ -109,7 +113,7 @@ class Anagrafica extends \yii\db\ActiveRecord
      */
     public function getDocumentos()
     {
-        return $this->hasMany(Documento::className(), ['id' => 'documento_id'])->viaTable('destinatari', ['anagrafica_id' => 'id']);
+        return $this->hasMany(Documento::class, ['id' => 'documento_id'])->viaTable('destinatari', ['anagrafica_id' => 'id']);
     }
 
     /**
@@ -119,7 +123,7 @@ class Anagrafica extends \yii\db\ActiveRecord
      */
     public function getIncopias()
     {
-        return $this->hasMany(Incopia::className(), ['anagrafica_id' => 'id']);
+        return $this->hasMany(Incopia::class, ['anagrafica_id' => 'id']);
     }
 
     /**
@@ -129,7 +133,7 @@ class Anagrafica extends \yii\db\ActiveRecord
      */
     public function getDocumentos0()
     {
-        return $this->hasMany(Documento::className(), ['id' => 'documento_id'])->viaTable('incopia', ['anagrafica_id' => 'id']);
+        return $this->hasMany(Documento::class, ['id' => 'documento_id'])->viaTable('incopia', ['anagrafica_id' => 'id']);
     }
 
     /**
@@ -139,7 +143,7 @@ class Anagrafica extends \yii\db\ActiveRecord
      */
     public function getInteressatis()
     {
-        return $this->hasMany(Interessati::className(), ['anagrafica_id' => 'id']);
+        return $this->hasMany(Interessati::class, ['anagrafica_id' => 'id']);
     }
 
     /**
@@ -149,7 +153,7 @@ class Anagrafica extends \yii\db\ActiveRecord
      */
     public function getDocumentos1()
     {
-        return $this->hasMany(Documento::className(), ['id' => 'documento_id'])->viaTable('interessati', ['anagrafica_id' => 'id']);
+        return $this->hasMany(Documento::class, ['id' => 'documento_id'])->viaTable('interessati', ['anagrafica_id' => 'id']);
     }
 
     /**
@@ -159,17 +163,17 @@ class Anagrafica extends \yii\db\ActiveRecord
      */
     public function getInternato()
     {
-        return $this->hasOne(Internato::className(), ['anagrafica_id' => 'id']);
+        return $this->hasOne(Internato::class, ['anagrafica_id' => 'id']);
     }
 
     /**
-     * Gets query for [[Mittentis]].
+     * Gets query for [[Mittenti]].
      *
      * @return \yii\db\ActiveQuery|\app\query\MittentiQuery
      */
-    public function getMittentis()
+    public function getMittenti()
     {
-        return $this->hasMany(Mittenti::className(), ['anagrafica_id' => 'id']);
+        return $this->hasMany(Mittenti::class, ['anagrafica_id' => 'id']);
     }
 
     /**
@@ -179,7 +183,7 @@ class Anagrafica extends \yii\db\ActiveRecord
      */
     public function getDocumentos2()
     {
-        return $this->hasMany(Documento::className(), ['id' => 'documento_id'])->viaTable('mittenti', ['anagrafica_id' => 'id']);
+        return $this->hasMany(Documento::class, ['id' => 'documento_id'])->viaTable('mittenti', ['anagrafica_id' => 'id']);
     }
 
     /**
@@ -189,5 +193,40 @@ class Anagrafica extends \yii\db\ActiveRecord
     public static function find()
     {
         return new \app\query\AnagraficaQuery(get_called_class());
+    }
+
+    public function getNomeCompleto(): string
+    {
+        return $this->cognome . " " .  $this->nome . ($this->secondo_nome? ' ' . $this->secondo_nome : '');
+    }
+
+    public function getMorto(){
+        $testo = '';
+        if ($this->morto_il) {
+            $data = new \DateTime($this->morto_il);
+            $testo = $data->format('d/m/Y');
+        }
+        if ($this->morto_a_id) {
+            if ($testo) {
+                $testo.=' ';
+            }
+            $testo .= Html::encode($this->mortoA->nome);
+        }
+        return $testo;
+    }
+    public function getNato() {
+        $testo = '';
+        if ($this->nato_il) {
+            $data = new \DateTime($this->nato_il);
+            $testo = $data->format('d/m/Y');
+        }
+
+        if ($this->nato_a_id) {
+            if ($testo) {
+                $testo.=' ';
+            }
+            $testo .= $this->natoA->nome;
+        }
+        return $testo;
     }
 }

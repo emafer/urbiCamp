@@ -12,11 +12,11 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'comune_id')->textInput() ?>
+    <?php \app\commands\HelperUrbiCampFormController::creaSelect2Comuni($form, $model, 'comune_id', ''); ?>
 
     <?= $form->field($model, 'nome')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'data_creazione')->textInput() ?>
+    <?= $form->field($model, 'data_creazione')->textInput(['type' => 'date']) ?>
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>

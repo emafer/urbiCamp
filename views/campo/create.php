@@ -6,7 +6,7 @@ use yii\helpers\Html;
 /* @var $model app\models\Campo */
 
 $this->title = 'Create Campo';
-$this->params['breadcrumbs'][] = ['label' => 'Campos', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Campi', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="campo-create">

@@ -12,10 +12,10 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'provincia_id')->textInput() ?>
-
-    <?= $form->field($model, 'stato_id')->textInput() ?>
-
+    <?php $comuni = \yii\helpers\ArrayHelper::map(\app\models\Provincia::find()->all(), 'id', 'nome');?>
+    <?= $form->field($model, 'provincia_id')->dropDownList($comuni, ['prompt' =>'']); ?>
+    <?php $comuni = \yii\helpers\ArrayHelper::map(\app\models\Stato::find()->all(), 'id', 'nome');?>
+    <?= $form->field($model, 'stato_id')->dropDownList($comuni, ['prompt' =>'']); ?>
     <?= $form->field($model, 'nome')->textInput(['maxlength' => true]) ?>
 
     <div class="form-group">

@@ -32,8 +32,8 @@ class FaldoneImmagine extends \yii\db\ActiveRecord
             [['faldone_id', 'immagine_id'], 'required'],
             [['faldone_id', 'immagine_id'], 'integer'],
             [['faldone_id', 'immagine_id'], 'unique', 'targetAttribute' => ['faldone_id', 'immagine_id']],
-            [['immagine_id'], 'exist', 'skipOnError' => true, 'targetClass' => Immagine::className(), 'targetAttribute' => ['immagine_id' => 'id']],
-            [['faldone_id'], 'exist', 'skipOnError' => true, 'targetClass' => Faldone::className(), 'targetAttribute' => ['faldone_id' => 'id']],
+            [['immagine_id'], 'exist', 'skipOnError' => true, 'targetClass' => Immagine::class, 'targetAttribute' => ['immagine_id' => 'id']],
+            [['faldone_id'], 'exist', 'skipOnError' => true, 'targetClass' => Faldone::class, 'targetAttribute' => ['faldone_id' => 'id']],
         ];
     }
 
@@ -55,7 +55,7 @@ class FaldoneImmagine extends \yii\db\ActiveRecord
      */
     public function getImmagine()
     {
-        return $this->hasOne(Immagine::className(), ['id' => 'immagine_id']);
+        return $this->hasOne(Immagine::class, ['id' => 'immagine_id']);
     }
 
     /**
@@ -65,7 +65,7 @@ class FaldoneImmagine extends \yii\db\ActiveRecord
      */
     public function getFaldone()
     {
-        return $this->hasOne(Faldone::className(), ['id' => 'faldone_id']);
+        return $this->hasOne(Faldone::class, ['id' => 'faldone_id']);
     }
 
     /**

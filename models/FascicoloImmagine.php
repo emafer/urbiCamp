@@ -12,6 +12,7 @@ use Yii;
  *
  * @property int $fascicolo_id
  * @property int $immagine_id
+ * @property int $ordine
  *
  * @property Immagine $immagine
  * @property Fascicolo $fascicolo
@@ -32,8 +33,8 @@ class FascicoloImmagine extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['fascicolo_id', 'immagine_id'], 'required'],
-            [['fascicolo_id', 'immagine_id'], 'integer'],
+            [['fascicolo_id', 'immagine_id', 'ordine'], 'required'],
+            [['fascicolo_id', 'immagine_id', 'ordine'], 'integer'],
             [['fascicolo_id', 'immagine_id'], 'unique', 'targetAttribute' => ['fascicolo_id', 'immagine_id']],
             [['immagine_id'], 'exist', 'skipOnError' => true, 'targetClass' => Immagine::class, 'targetAttribute' => ['immagine_id' => 'id']],
             [['fascicolo_id'], 'exist', 'skipOnError' => true, 'targetClass' => Fascicolo::class, 'targetAttribute' => ['fascicolo_id' => 'id']],
@@ -48,6 +49,7 @@ class FascicoloImmagine extends \yii\db\ActiveRecord
         return [
             'fascicolo_id' => 'Fascicolo ID',
             'immagine_id' => 'Immagine ID',
+            'ordine' => 'Ordinamento'
         ];
     }
 

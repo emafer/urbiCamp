@@ -2,6 +2,10 @@
 
 namespace app\controllers;
 
+use app\models\Faldone;
+use app\models\FaldoneImmagine;
+use app\models\FascicoloInternato;
+use app\models\Immagine;
 use Yii;
 use app\models\Fascicolo;
 use app\search\FascicoloSearch;
@@ -37,7 +41,7 @@ class FascicoloController extends Controller
      */
     public function actionIndex()
     {
-        $searchModel = new Fascicolo();
+        $searchModel = new FascicoloSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -57,6 +61,8 @@ class FascicoloController extends Controller
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'faldone_id' => Yii::$app->request->get('faldone'),
+            'faldone' => Faldone::findOne(Yii::$app->request->get('faldone'))
         ]);
     }
     /**
@@ -79,14 +85,22 @@ class FascicoloController extends Controller
      */
     public function actionCreate()
     {
-        $model = new Fascicolo();
+
+        if (Yii::$app->request->get('faldone_id')) {
+            $model = new Fascicolo(['faldone_id' => Yii::$app->request->get('faldone_id')]);
+        } else{
+            $model = new Fascicolo();
+        }
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            $session = \Yii::$app->session;
+                $fascicoloPost = Yii::$app->request->post('Fascicolo');
+                $this->salvaFascInternati($fascicoloPost['internati'], $model, $session);
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
         return $this->render('create', [
-            'model' => $model,
+            'model' => $model
         ]);
     }
 
@@ -102,12 +116,18 @@ class FascicoloController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) ) {
+            $session = \Yii::$app->session;
+            if (Yii::$app->request->post('cambiaInternati')) {
+                FascicoloInternato::deleteAll(['fascicolo_id' => $model->id]);
+                $fascicoloPost = Yii::$app->request->post('Fascicolo');
+                $this->salvaFascInternati($fascicoloPost['internati'], $model, $session);
+            }
             $model->save();
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
         return $this->render('update', [
-            'model' => $model,
+            'model' => $model
         ]);
     }
 
@@ -139,5 +159,32 @@ class FascicoloController extends Controller
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
+    }
+
+    public function actionFascicoloImmagine($id)
+    {
+        $model = FaldoneImmagine::findOne($id);
+    }
+    /**
+     * @param $internati
+     * @param Fascicolo $model
+     * @param $session
+     */
+    protected function salvaFascInternati($internati, Fascicolo $model, $session): void
+    {
+        foreach ($internati as $idDaAbbinare) {
+            $dest = new FascicoloInternato([
+                'internato_id' => $idDaAbbinare,
+                'fascicolo_id' => $model->id
+            ]);
+            if (!$dest->save()) {
+                $session->addFlash('1',
+                    [
+                        'type' => 'error',
+                        'msg' => 'Qualcosa &egrave; andato storto nel salvataggio...',
+                    ]
+                );
+            };
+        }
     }
 }

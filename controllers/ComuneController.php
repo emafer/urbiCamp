@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\search\ComuneSearch;
 use Yii;
 use app\models\Comune;
 use app\search;
@@ -35,7 +36,7 @@ class ComuneController extends Controller
      */
     public function actionIndex()
     {
-        $searchModel = new search();
+        $searchModel = new ComuneSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [

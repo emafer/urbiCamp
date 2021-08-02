@@ -32,7 +32,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'template' =>'{view} {update} {delete} {lista}',
             'buttons' => [
                 'lista' => function ($url, $model, $key) {
-                    return Html::a('<i class="bi bi-list-ul"></i>aa', ['faldone/lista', 'fondo'=>$model->id]);
+                    return Html::a('<i class="glyphicon glyphicon-list"></i>', ['faldone/lista', 'fondo'=>$model->id]);
                 },
             ]
             ],

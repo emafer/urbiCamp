@@ -36,7 +36,7 @@ class Campo extends \yii\db\ActiveRecord
             [['comune_id'], 'integer'],
             [['data_creazione'], 'safe'],
             [['nome'], 'string', 'max' => 255],
-            [['comune_id'], 'exist', 'skipOnError' => true, 'targetClass' => Comune::className(), 'targetAttribute' => ['comune_id' => 'id']],
+            [['comune_id'], 'exist', 'skipOnError' => true, 'targetClass' => Comune::class, 'targetAttribute' => ['comune_id' => 'id']],
         ];
     }
 
@@ -60,7 +60,7 @@ class Campo extends \yii\db\ActiveRecord
      */
     public function getComune()
     {
-        return $this->hasOne(Comune::className(), ['id' => 'comune_id']);
+        return $this->hasOne(Comune::class, ['id' => 'comune_id']);
     }
 
     /**
@@ -70,7 +70,7 @@ class Campo extends \yii\db\ActiveRecord
      */
     public function getInternatos()
     {
-        return $this->hasMany(Internato::className(), ['provienza_da_campo_id' => 'id']);
+        return $this->hasMany(Internato::class, ['provienza_da_campo_id' => 'id']);
     }
 
     /**

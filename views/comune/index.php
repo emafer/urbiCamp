@@ -7,7 +7,7 @@ use yii\grid\GridView;
 /* @var $searchModel app\search */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Comunes';
+$this->title = 'Comuni';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="comune-index">
@@ -15,7 +15,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Create Comune', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Crea Comune', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
@@ -26,10 +26,9 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
-            'provincia_id',
-            'stato_id',
             'nome',
+            'provincia.nome',
+            'stato.nome',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

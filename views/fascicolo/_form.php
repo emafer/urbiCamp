@@ -10,19 +10,16 @@ use yii\widgets\ActiveForm;
 ?>
 
 <div class="fascicolo-form">
-
-    <?php $form = ActiveForm::begin(['options' => ['enctype'=>'multipart/form-data']]); ?>
+<div class="row">
+    <?php $form = ActiveForm::begin();
+    $items = \yii\helpers\ArrayHelper::map(\app\models\Faldone::find()->all(), 'id', 'nomeCompleto');?>
+    <?= $form->field($model, 'faldone_id')->dropDownList($items, ['placeholder' =>'']) ?>
 
     <?= $form->field($model, 'descrizione')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'note')->textInput(['maxlength' => true]) ?>
-    <?php
-    echo FileInput::widget([
-        'model' => $model,
-        'attribute' => 'immagines[]',
-        'options' => ['multiple' => true]
-    ]);
-    ?>
+    <?php \app\commands\HelperUrbiCampFormController::creaSelect2Internati($form, $model, 'internati', ''); ?>
+</div>
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
     </div>

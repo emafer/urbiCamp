@@ -5,8 +5,8 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\Comune */
 
-$this->title = 'Create Comune';
-$this->params['breadcrumbs'][] = ['label' => 'Comunes', 'url' => ['index']];
+$this->title = 'Crea Comune';
+$this->params['breadcrumbs'][] = ['label' => 'Comuni', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="comune-create">

@@ -6,16 +6,35 @@ use yii\grid\GridView;
 /* @var $this yii\web\View */
 /* @var $searchModel app\search\FascicoloSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
+/* @var $faldone_id string */
+/* @var $faldone \app\models\Faldone */
 
-$this->title = 'Fascicolos';
+if (!isset($faldone_id)) {
+    $faldone_id = '';
+}
+$this->title = 'Fascicoli';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
+
 <div class="fascicolo-index">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <h1><?php
+        if ($faldone_id) {
+            echo Html::encode('Fascicoli contenuti nel faldone ' . $faldone->getNomeCompleto());
+        } else {
+            echo Html::encode($this->title);
+        } ?></h1>
 
     <p>
-        <?= Html::a('Create Fascicolo', ['create'], ['class' => 'btn btn-success']) ?>
+        <?php
+        if (!$faldone_id) {
+            echo Html::a('Crea Fascicolo', ['create'], ['class' => 'btn btn-success']);
+        } else {
+            echo  Html::a('Crea Fascicolo',
+                ['create', 'faldone_id' => $faldone_id],
+                ['class' => 'btn btn-success']
+            );
+        } ?>
     </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
@@ -25,14 +44,20 @@ $this->params['breadcrumbs'][] = $this->title;
         'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-
             'faldone.archivio.abbr',
             'faldone.classificazione',
             'descrizione',
             'note',
-
-            ['class' => 'yii\grid\ActionColumn'],
-        ],
+            [
+                'class' => 'yii\grid\ActionColumn',
+                'template' =>'{view} {update} {delete} {lista}',
+                'buttons' => [
+                    'lista' => function ($url, $model, $key) {
+                        return Html::a('<i class="glyphicon glyphicon-list"></i>', ['documento/lista', 'fascicolo'=>$model->id]);
+                    },
+                    ],
+                ],
+            ]
     ]); ?>
 
 

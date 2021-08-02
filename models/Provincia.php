@@ -56,7 +56,7 @@ class Provincia extends \yii\db\ActiveRecord
      */
     public function getComunes()
     {
-        return $this->hasMany(Comune::className(), ['provincia_id' => 'id']);
+        return $this->hasMany(Comune::class, ['provincia_id' => 'id']);
     }
 
     /**

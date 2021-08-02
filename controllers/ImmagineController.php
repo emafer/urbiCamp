@@ -2,10 +2,11 @@
 
 namespace app\controllers;
 
+use app\models\DocumentoImmagine;
+use app\models\FascicoloImmagine;
 use Yii;
 use app\models\Immagine;
 use app\search\ImmagineSearch;
-use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\web\UploadedFile;
@@ -13,7 +14,8 @@ use yii\web\UploadedFile;
 /**
  * ImmagineController implements the CRUD actions for Immagine model.
  */
-class ImmagineController extends Controller
+use yii\web\Controller;
+class ImmagineController extends UrbiCampController
 {
     /**
      * {@inheritdoc}
@@ -53,9 +55,16 @@ class ImmagineController extends Controller
      */
     public function actionView($id)
     {
-        return $this->render('view', [
-            'model' => $this->findModel($id),
-        ]);
+        if ($this->isAjax()) {
+
+            return $this->renderAjax('view', [
+                'model' => $this->findModel($id),
+            ]);
+        } else {
+            return $this->render('view', [
+                'model' => $this->findModel($id),
+            ]);
+        }
     }
 
     /**
@@ -71,12 +80,60 @@ class ImmagineController extends Controller
             $model->path = UploadedFile::getInstance($model, 'path');
             $model->upload();
             $model->save();
-            return $this->redirect(['view', 'id' => $model->id]);
+            if (
+                $this->isAjax()) {
+                $return = [
+                    'status' => true,
+                    'id_immagine' => $model->id
+                ];
+                switch (Yii::$app->request->post('targetModel')) {
+                    case 'Fascicolo':
+                        $Dimm = new FascicoloImmagine();
+                        $Dimm->immagine_id = $model->id;
+                        $Dimm->fascicolo_id = Yii::$app->request->post('mid');
+                        $Dimm->ordine =1;
+                        if ($Dimm->validate()) {
+                            $Dimm->save();
+                        } else {
+                            $return['status'] = false;
+                            $return['errors'] = $Dimm->errors;
+                        }
+                        break;
+                        case 'Documento':
+                        $Dimm = new DocumentoImmagine();
+                        $Dimm->immagine_id = $model->id;
+                        $Dimm->documento_id = Yii::$app->request->post('mid');
+                        $Dimm->ordine =1;
+                        if ($Dimm->validate()) {
+                            $Dimm->save();
+                        } else {
+                            $return['status'] = false;
+                            $return['errors'] = $Dimm->errors;
+                        }
+                        break;
+                    default:
+                        $return['status'] = false;
+                        break;
+                }
+                Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+                return $this->asJson($return);
+            } else {
+                return $this->redirect(['view', 'id' => $model->id]);
+            }
         }
-
-        return $this->render('create', [
-            'model' => $model,
+        if ($this->isAjax()) {
+            return $this->renderAjax('create', [
+                'model' => $model,
+                'ajax' => true,
+                'mid' => Yii::$app->request->get('mid'),
+                'targetModel' => Yii::$app->request->get('targetModel'),
+            ]);
+        } else {
+            return $this->render('create', [
+                'model' => $model,
+                'ajax' => false
         ]);
+}
     }
 
     /**
@@ -128,4 +185,5 @@ class ImmagineController extends Controller
 
         throw new NotFoundHttpException('The requested page does not exist.');
     }
+
 }

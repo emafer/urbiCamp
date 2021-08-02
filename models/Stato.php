@@ -55,7 +55,7 @@ class Stato extends \yii\db\ActiveRecord
      */
     public function getComunes()
     {
-        return $this->hasMany(Comune::className(), ['stato_id' => 'id']);
+        return $this->hasMany(Comune::class, ['stato_id' => 'id']);
     }
 
     /**

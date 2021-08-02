@@ -23,28 +23,31 @@ $this->params['breadcrumbs'][] = $this->title;
         } ?>
     </p>
 
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+    <?php $dataProvider->setSort([
+        'defaultOrder' => [
+            'classificazione' => SORT_ASC
+        ]])
+    // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-
             'archivio.abbr',
+            'classificazione',
             'descrizione',
             'note',
-            'classificazione',
-
-            ['class' => 'yii\grid\ActionColumn',
+            [
+                'class' => 'yii\grid\ActionColumn',
                 'template' =>'{view} {update} {delete} {lista}',
                 'buttons' => [
                     'lista' => function ($url, $model, $key) {
-                        return Html::a('<i class="bi bi-list-ul"></i>aa', ['fascicolo/lista', 'faldone'=>$model->id]);
+                        return Html::a('<i class="glyphicon glyphicon-list"></i>', ['fascicolo/lista', 'faldone'=>$model->id]);
                     },
                     ],
-        ],]
-    ]); ?>
-
-
+                ],
+            ]
+        ]);
+    ?>
 </div>

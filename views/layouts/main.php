@@ -9,6 +9,7 @@ use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
 use app\assets\AppAsset;
+use webvimark\modules\UserManagement\UserManagementModule;
 
 AppAsset::register($this);
 ?>
@@ -35,28 +36,38 @@ AppAsset::register($this);
             'class' => 'navbar-inverse navbar-fixed-top',
         ],
     ]);
+    $items = [
+        ['label' => 'Home', 'url' => ['/site/index']],
+        ['label' => 'Documenti', 'url' => ['/documento/index']],
+        ['label' => 'Archivi',
+            'items' =>[
+                ['label' => 'Fondi', 'url' => ['/archivio']],
+                ['label' => 'Faldoni', 'url' => ['/faldone']],
+                ['label' => 'Fascicoli', 'url' => ['/fascicolo']],
+                ['label' => 'Tipologie', 'url' => ['/tipologia']],
+                ['label' => 'Campi', 'url' => ['/campo']],
+            ]
+        ],
+        ['label' => 'Anagrafiche',
+            'items' => [
+                    ['label' => 'Anagrafiche', 'url' => ['/anagrafica/index']],
+                    ['label' => 'Internati', 'url' => ['/internato/index']]
+            ]
+        ],
+    ];
+    if (Yii::$app->user->isGuest) {
+        $items[] =  ['label' => 'Login', 'url' => ['/user-management/auth/login']];
+    } else {
+        $sub = UserManagementModule::menuItems();
+        $sub[] = ['label' => 'Logout', 'url' => ['/user-management/auth/logout']];
+        $items[] =  [
+            'label' => 'User',
+            'items'=> $sub
+        ];
+    }
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],
-        'items' => [
-            ['label' => 'Home', 'url' => ['/site/index']],
-            ['label' => 'About', 'url' => ['/site/about']],
-            ['label' => 'Contact', 'url' => ['/site/contact']],
-            ['label' => 'archivi', 'url' => ['/archivio']],
-            ['label' => 'Faldoni', 'url' => ['/faldone']],
-            ['label' => 'Fascicoli', 'url' => ['/fascicolo']],
-            Yii::$app->user->isGuest ? (
-                ['label' => 'Login', 'url' => ['/site/login']]
-            ) : (
-                '<li>'
-                . Html::beginForm(['/site/logout'], 'post')
-                . Html::submitButton(
-                    'Logout (' . Yii::$app->user->identity->username . ')',
-                    ['class' => 'btn btn-link logout']
-                )
-                . Html::endForm()
-                . '</li>'
-            )
-        ],
+        'items' => $items
     ]);
     NavBar::end();
     ?>
@@ -71,10 +82,19 @@ AppAsset::register($this);
 </div>
 
 <footer class="footer">
-    <div class="container">
-        <p class="pull-left">&copy; My Company <?= date('Y') ?></p>
 
-        <p class="pull-right"><?= Yii::powered() ?></p>
+    <div class="modal remote fade" id="modalAnagCreate">
+        <div class="modal-dialog">
+            <div class="modal-content  loader-lg"> <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div></div>
+        </div>
+    </div>
+
+    <div class="container">
+        <p class="pull-left">&copy; Casa della Memoria - Urbisaglia <?= date('Y') ?></p>
+
     </div>
 </footer>
 <script src="/js/imageForm.js"></script>

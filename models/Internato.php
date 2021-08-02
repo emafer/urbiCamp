@@ -11,6 +11,7 @@ use Yii;
  * @property int $anagrafica_id
  * @property int|null $provenienza_da_id
  * @property int|null $provienza_da_campo_id
+ * @property int|null $campo_differente_id
  * @property string|null $matricola
  * @property string|null $data_arrivo
  * @property string|null $data_uscita
@@ -19,6 +20,7 @@ use Yii;
  * @property Documento[] $documentos
  * @property Comune $provenienzaDa
  * @property Campo $provienzaDaCampo
+ * @property Campo $campoDifferente
  * @property Anagrafica $anagrafica
  */
 class Internato extends \yii\db\ActiveRecord
@@ -38,13 +40,14 @@ class Internato extends \yii\db\ActiveRecord
     {
         return [
             [['anagrafica_id'], 'required'],
-            [['anagrafica_id', 'provenienza_da_id', 'provienza_da_campo_id'], 'integer'],
+            [['anagrafica_id', 'provenienza_da_id', 'provienza_da_campo_id', 'campo_differente_id'], 'integer'],
             [['data_arrivo', 'data_uscita'], 'safe'],
             [['matricola'], 'string', 'max' => 255],
             [['anagrafica_id'], 'unique'],
-            [['provenienza_da_id'], 'exist', 'skipOnError' => true, 'targetClass' => Comune::className(), 'targetAttribute' => ['provenienza_da_id' => 'id']],
-            [['provienza_da_campo_id'], 'exist', 'skipOnError' => true, 'targetClass' => Campo::className(), 'targetAttribute' => ['provienza_da_campo_id' => 'id']],
-            [['anagrafica_id'], 'exist', 'skipOnError' => true, 'targetClass' => Anagrafica::className(), 'targetAttribute' => ['anagrafica_id' => 'id']],
+            [['provenienza_da_id'], 'exist', 'skipOnError' => true, 'targetClass' => Comune::class, 'targetAttribute' => ['provenienza_da_id' => 'id']],
+            [['provienza_da_campo_id'], 'exist', 'skipOnError' => true, 'targetClass' => Campo::class, 'targetAttribute' => ['provienza_da_campo_id' => 'id']],
+            [['campo_differente_id'], 'exist', 'skipOnError' => true, 'targetClass' => Campo::class, 'targetAttribute' => ['campo_differente_id' => 'id']],
+            [['anagrafica_id'], 'exist', 'skipOnError' => true, 'targetClass' => Anagrafica::class, 'targetAttribute' => ['anagrafica_id' => 'id']],
         ];
     }
 
@@ -71,7 +74,7 @@ class Internato extends \yii\db\ActiveRecord
      */
     public function getDocumentoInternatos()
     {
-        return $this->hasMany(DocumentoInternato::className(), ['internato_id' => 'id']);
+        return $this->hasMany(DocumentoInternato::class, ['internato_id' => 'id']);
     }
 
     /**
@@ -81,7 +84,7 @@ class Internato extends \yii\db\ActiveRecord
      */
     public function getDocumentos()
     {
-        return $this->hasMany(Documento::className(), ['id' => 'documento_id'])->viaTable('documento_internato', ['internato_id' => 'id']);
+        return $this->hasMany(Documento::class, ['id' => 'documento_id'])->viaTable('documento_internato', ['internato_id' => 'id']);
     }
 
     /**
@@ -91,7 +94,7 @@ class Internato extends \yii\db\ActiveRecord
      */
     public function getProvenienzaDa()
     {
-        return $this->hasOne(Comune::className(), ['id' => 'provenienza_da_id']);
+        return $this->hasOne(Comune::class, ['id' => 'provenienza_da_id']);
     }
 
     /**
@@ -101,7 +104,17 @@ class Internato extends \yii\db\ActiveRecord
      */
     public function getProvienzaDaCampo()
     {
-        return $this->hasOne(Campo::className(), ['id' => 'provienza_da_campo_id']);
+        return $this->hasOne(Campo::class, ['id' => 'provienza_da_campo_id']);
+    }
+
+    /**
+     * Gets query for [[CampoDifferente]].
+     *
+     * @return \yii\db\ActiveQuery|\app\query\CampoQuery
+     */
+    public function getCampoDifferente()
+    {
+        return $this->hasOne(Campo::class, ['id' => 'campo_differente_id']);
     }
 
     /**
@@ -111,7 +124,7 @@ class Internato extends \yii\db\ActiveRecord
      */
     public function getAnagrafica()
     {
-        return $this->hasOne(Anagrafica::className(), ['id' => 'anagrafica_id']);
+        return $this->hasOne(Anagrafica::class, ['id' => 'anagrafica_id']);
     }
 
     /**
@@ -121,5 +134,10 @@ class Internato extends \yii\db\ActiveRecord
     public static function find()
     {
         return new \app\query\InternatoQuery(get_called_class());
+    }
+
+    public function getNome()
+    {
+        return $this->anagrafica->getNomeCompleto();
     }
 }

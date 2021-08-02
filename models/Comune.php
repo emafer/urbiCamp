@@ -38,8 +38,8 @@ class Comune extends \yii\db\ActiveRecord
             [['provincia_id', 'stato_id', 'nome'], 'required'],
             [['provincia_id', 'stato_id'], 'integer'],
             [['nome'], 'string', 'max' => 255],
-            [['provincia_id'], 'exist', 'skipOnError' => true, 'targetClass' => Provincia::className(), 'targetAttribute' => ['provincia_id' => 'id']],
-            [['stato_id'], 'exist', 'skipOnError' => true, 'targetClass' => Stato::className(), 'targetAttribute' => ['stato_id' => 'id']],
+            [['provincia_id'], 'exist', 'skipOnError' => true, 'targetClass' => Provincia::class, 'targetAttribute' => ['provincia_id' => 'id']],
+            [['stato_id'], 'exist', 'skipOnError' => true, 'targetClass' => Stato::class, 'targetAttribute' => ['stato_id' => 'id']],
         ];
     }
 
@@ -50,8 +50,8 @@ class Comune extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'provincia_id' => 'Provincia ID',
-            'stato_id' => 'Stato ID',
+            'provincia_id' => 'Provincia',
+            'stato_id' => 'Stato',
             'nome' => 'Nome',
         ];
     }
@@ -63,7 +63,7 @@ class Comune extends \yii\db\ActiveRecord
      */
     public function getAnagraficas()
     {
-        return $this->hasMany(Anagrafica::className(), ['nato_a_id' => 'id']);
+        return $this->hasMany(Anagrafica::class, ['nato_a_id' => 'id']);
     }
 
     /**
@@ -73,7 +73,7 @@ class Comune extends \yii\db\ActiveRecord
      */
     public function getAnagraficas0()
     {
-        return $this->hasMany(Anagrafica::className(), ['morto_a_id' => 'id']);
+        return $this->hasMany(Anagrafica::class, ['morto_a_id' => 'id']);
     }
 
     /**
@@ -83,7 +83,7 @@ class Comune extends \yii\db\ActiveRecord
      */
     public function getCampos()
     {
-        return $this->hasMany(Campo::className(), ['comune_id' => 'id']);
+        return $this->hasMany(Campo::class, ['comune_id' => 'id']);
     }
 
     /**
@@ -93,7 +93,7 @@ class Comune extends \yii\db\ActiveRecord
      */
     public function getProvincia()
     {
-        return $this->hasOne(Provincia::className(), ['id' => 'provincia_id']);
+        return $this->hasOne(Provincia::class, ['id' => 'provincia_id']);
     }
 
     /**
@@ -103,7 +103,7 @@ class Comune extends \yii\db\ActiveRecord
      */
     public function getStato()
     {
-        return $this->hasOne(Stato::className(), ['id' => 'stato_id']);
+        return $this->hasOne(Stato::class, ['id' => 'stato_id']);
     }
 
     /**
@@ -113,7 +113,7 @@ class Comune extends \yii\db\ActiveRecord
      */
     public function getInternatos()
     {
-        return $this->hasMany(Internato::className(), ['provenienza_da_id' => 'id']);
+        return $this->hasMany(Internato::class, ['provenienza_da_id' => 'id']);
     }
 
     /**

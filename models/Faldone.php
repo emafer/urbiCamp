@@ -72,6 +72,10 @@ class Faldone extends \yii\db\ActiveRecord
         return $this->hasOne(Archivio::class, ['id' => 'archivio_id']);
     }
 
+    public function getArchivioModel()
+    {
+        return $this->hasOne(Archivio::class, ['id' => 'archivio_id'])->one();
+    }
     /**
      * Gets query for [[Immagine]].
      *
@@ -107,5 +111,10 @@ class Faldone extends \yii\db\ActiveRecord
     public static function find()
     {
         return new FaldoneQuery(get_called_class());
+    }
+
+    public function getNomeCompleto():string
+    {
+        return ($this->archivio->abbr . " - " . $this->classificazione);
     }
 }

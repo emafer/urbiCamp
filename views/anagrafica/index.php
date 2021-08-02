@@ -7,7 +7,7 @@ use yii\grid\GridView;
 /* @var $searchModel app\search\AnagraficaSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Anagraficas';
+$this->title = 'Anagrafiche';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="anagrafica-index">
@@ -25,17 +25,10 @@ $this->params['breadcrumbs'][] = $this->title;
         'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-
-            'id',
-            'nato_a_id',
-            'morto_a_id',
             'cognome',
             'nome',
-            //'nato_il',
-            //'morto_il',
-            //'secondo_nome',
-            //'morto_shoah',
-
+            'nato',
+            'morto',
             ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>
