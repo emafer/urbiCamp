@@ -21,6 +21,9 @@ class AnagraficaController extends UrbiCampController
     public function behaviors()
     {
         return [
+            'ghost-access'=> [
+                'class' => 'webvimark\modules\UserManagement\components\GhostAccessControl',
+            ],
             'verbs' => [
                 'class' => VerbFilter::class,
                 'actions' => [

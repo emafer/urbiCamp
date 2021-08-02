@@ -3,6 +3,7 @@
 namespace app\controllers;
 
 use Yii;
+use yii\filters\VerbFilter;
 use yii\web\Controller;
 
 class UrbiCampController extends Controller
@@ -16,6 +17,12 @@ class UrbiCampController extends Controller
         return [
             'ghost-access'=> [
                 'class' => 'webvimark\modules\UserManagement\components\GhostAccessControl',
+            ],
+            'verbs' => [
+                'class' => VerbFilter::class,
+                'actions' => [
+                    'delete' => ['POST'],
+                ],
             ],
         ];
     }

@@ -6,10 +6,7 @@ use app\models\Destinatari;
 use app\models\DocumentoInternato;
 use app\models\Fascicolo;
 use app\models\Interessato;
-use app\models\Internato;
 use app\models\Mittenti;
-use app\query\DocumentoImmagineQuery;
-use Couchbase\Document;
 use Yii;
 use app\models\Documento;
 use app\search\DocumentoSearch;
@@ -29,14 +26,14 @@ class DocumentoController extends Controller
     public function behaviors()
     {
         return [
+            'ghost-access'=> [
+                'class' => 'webvimark\modules\UserManagement\components\GhostAccessControl',
+            ],
             'verbs' => [
-                'class' => VerbFilter::className(),
+                'class' => VerbFilter::class,
                 'actions' => [
                     'delete' => ['POST'],
                 ],
-            ],
-            'ghost-access'=> [
-                'class' => 'webvimark\modules\UserManagement\components\GhostAccessControl',
             ],
         ];
     }

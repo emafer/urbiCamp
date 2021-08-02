@@ -49,10 +49,15 @@ $this->params['breadcrumbs'][] = $this->title;
     'data-target'=>'#modalImgCreate',
     ]
     );
+    $images = [];
     ?>
     <div class="row">
         <?php
         foreach ($model->documentoImmagini as $docImmagine) {
+            $images[] = [
+                'src' => '/uploads/' . $docImmagine->immagine->path,
+                'title' =>  $docImmagine->immagine->descrizione,
+            ];
             echo '<div class="col-sm-4">
             <div class="card">
                 <div class="card-body">
