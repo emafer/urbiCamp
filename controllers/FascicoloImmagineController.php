@@ -12,7 +12,7 @@ use yii\filters\VerbFilter;
 /**
  * FascicoloImmagineController implements the CRUD actions for FascicoloImmagine model.
  */
-class FascicoloImmagineController extends Controller
+class FascicoloImmagineController extends  UrbiCampController
 {
     /**
      * {@inheritdoc}

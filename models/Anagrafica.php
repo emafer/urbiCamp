@@ -25,15 +25,15 @@ use yii\helpers\Html;
  * @property Comune $mortoA
  * @property Destinatari[] $destinatari
  * @property Documento[] $documentos
- * @property Incopia[] $incopias
+ * @property Anagrafica[] $incopias
  * @property Documento[] $documentos0
- * @property Interessati[] $interessatis
+ * @property Anagrafica[] $interessatis
  * @property Documento[] $documentos1
  * @property Internato $internato
  * @property Mittenti[] $mittenti
  * @property Documento[] $documentos2
  */
-class Anagrafica extends \yii\db\ActiveRecord
+class Anagrafica extends UrbiModel
 {
     /**
      * {@inheritdoc}

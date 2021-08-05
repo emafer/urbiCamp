@@ -27,6 +27,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
             'nome',
             'comune.nome',
+            'tipoLabel',
             'data_creazione',
             ['class' => 'yii\grid\ActionColumn'],
         ],

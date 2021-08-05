@@ -24,7 +24,7 @@ use yii\web\UploadedFile;
  * @property FascicoloImmagine[] $fascicoloImmagines
  * @property Fascicolo[] $fascicolos
  */
-class Immagine extends \yii\db\ActiveRecord
+class Immagine extends UrbiModel
 {
     /**
      * {@inheritdoc}

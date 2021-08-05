@@ -15,18 +15,25 @@ use yii\widgets\ActiveForm;
     \app\commands\HelperUrbiCampFormController::creaSelect2Anagrafica($form, $model, 'anagrafica_id', '...', false);
     ?>
     <?php
-    \app\commands\HelperUrbiCampFormController::creaSelect2Comuni($form, $model, 'provenienza_da_id', '');
-
     $campi = \yii\helpers\ArrayHelper::map(\app\models\Campo::find()->all(), 'id', 'nome');
-        echo $form->field($model, 'provienza_da_campo_id')->dropDownList($campi, ['prompt' =>'']);
-        echo $form->field($model, 'campo_differente_id')->dropDownList($campi, ['prompt' =>'']);
-?>
 
-    <?= $form->field($model, 'matricola')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'data_arrivo')->textInput() ?>
-
-    <?= $form->field($model, 'data_uscita')->textInput() ?>
+    foreach ($model->internatoCampi as $k =>$item) {
+        echo $this->render('../internatoCampo/_form', [
+            'item' => $item,
+            'form' => $form,
+            'k' => $k,
+            'campi' => $campi,
+            'new' => false
+        ]);
+    }
+    echo $this->render('../internatoCampo/_form', [
+        'item' => new \app\models\InternatoCampo(),
+        'form' => $form,
+        'k' => count($model->internatoCampi),
+        'campi' => $campi,
+        'new' => true
+    ]);
+    ?>
 
     <div class="form-group">
         <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success']) ?>

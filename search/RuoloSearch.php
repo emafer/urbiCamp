@@ -4,12 +4,12 @@ namespace app\search;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\Internato;
+use app\models\Ruolo;
 
 /**
- * InternatoSearch represents the model behind the search form of `app\models\Internato`.
+ * RuoloSearch represents the model behind the search form of `app\models\Ruolo`.
  */
-class InternatoSearch extends Internato
+class RuoloSearch extends Ruolo
 {
     /**
      * {@inheritdoc}
@@ -17,8 +17,8 @@ class InternatoSearch extends Internato
     public function rules()
     {
         return [
-            [['id', 'anagrafica_id'], 'integer'],
-            [[], 'safe'],
+            [['id'], 'integer'],
+            [['ruolo'], 'safe'],
         ];
     }
 
@@ -40,7 +40,7 @@ class InternatoSearch extends Internato
      */
     public function search($params)
     {
-        $query = Internato::find();
+        $query = Ruolo::find();
 
         // add conditions that should always apply here
 
@@ -59,9 +59,9 @@ class InternatoSearch extends Internato
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'anagrafica_id' => $this->anagrafica_id,
         ]);
 
+        $query->andFilterWhere(['like', 'ruolo', $this->ruolo]);
 
         return $dataProvider;
     }

@@ -14,10 +14,21 @@ class HelperUrbiCampFormController
         ActiveForm $form,
         Model      $model,
         string     $attribute,
-        string     $placeholder)
+        string     $placeholder,
+        string      $nome = '',
+        string      $id = ''
+    )
     {
+        $options = [];
+        $options['prompt'] = $placeholder;
+        if ($nome) {
+            $options['name'] = $nome;
+        }
+        if ($id) {
+            $options['id'] = $id;
+        }
         $comuni = \yii\helpers\ArrayHelper::map(\app\models\Comune::find()->all(), 'id', 'nome');
-        echo $form->field($model, $attribute)->dropDownList($comuni, ['prompt' =>$placeholder]);
+        echo $form->field($model, $attribute)->dropDownList($comuni, $options);
     }
     public static function creaSelect2Anagrafica(
         ActiveForm $form,

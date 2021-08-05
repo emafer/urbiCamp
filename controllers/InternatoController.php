@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\InternatoCampo;
 use Yii;
 use app\models\Internato;
 use app\search\InternatoSearch;
@@ -12,7 +13,7 @@ use yii\filters\VerbFilter;
 /**
  * InternatoController implements the CRUD actions for Internato model.
  */
-class InternatoController extends Controller
+class InternatoController extends  UrbiCampController
 {
     /**
      * {@inheritdoc}
@@ -69,7 +70,7 @@ class InternatoController extends Controller
     {
         $model = new Internato();
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-
+            var_dump(Yii::$app->request->post('InternatoCampo'));die;
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
@@ -90,6 +91,30 @@ class InternatoController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            InternatoCampo::deleteAll(['internato_id' => $model->id]);
+            $session = \Yii::$app->session;
+            foreach (Yii::$app->request->post('InternatoCampo') as $newIntCamp) {
+                if(!$newIntCamp['campo_id']) {
+                    continue;
+                }
+                $dest = new InternatoCampo([
+                    'internato_id' => $model->id,
+                    'provenienza_da_id' => $newIntCamp['provenienza_da_id'],
+                    'provenienza_da_campo_id' => $newIntCamp['provenienza_da_campo_id'],
+                    'matricola' => $newIntCamp['matricola'],
+                    'data_arrivo' => $newIntCamp['data_arrivo'],
+                    'data_uscita' => $newIntCamp['data_uscita'],
+                    'campo_id' => $newIntCamp['campo_id'],
+                ]);
+                if (!$dest->save()) {
+                    $session->addFlash('1',
+                        [
+                            'type' => 'error',
+                            'msg' => 'Qualcosa &egrave; andato storto nel salvataggio...',
+                        ]
+                    );
+                };
+            }
             return $this->redirect(['view', 'id' => $model->id]);
         }
 

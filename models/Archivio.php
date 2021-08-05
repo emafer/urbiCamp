@@ -15,7 +15,7 @@ use Yii;
  *
  * @property Faldone[] $faldones
  */
-class Archivio extends \yii\db\ActiveRecord
+class Archivio extends  UrbiModel
 {
     /**
      * {@inheritdoc}

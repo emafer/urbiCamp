@@ -4,10 +4,10 @@ use yii\helpers\Html;
 use yii\grid\GridView;
 
 /* @var $this yii\web\View */
-/* @var $searchModel app\search\FaldoneSearch */
+/* @var $searchModel app\search\extends  UrbiCampControllerSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 /* @var $archivio_id string */
-$this->title = 'Faldoni';
+$this->title = 'Buste';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="faldone-index">
@@ -17,9 +17,9 @@ $this->params['breadcrumbs'][] = $this->title;
     <p>
         <?php
         if (!$archivio_id) {
-            echo Html::a('Crea Faldone', ['create'], ['class' => 'btn btn-success']);
+            echo Html::a('Crea Busta', ['create'], ['class' => 'btn btn-success']);
         } else {
-           echo  Html::a('Crea Faldone', ['create', 'archivio_id' => $archivio_id], ['class' => 'btn btn-success']);
+           echo  Html::a('Crea Busta', ['create', 'archivio_id' => $archivio_id], ['class' => 'btn btn-success']);
         } ?>
     </p>
 

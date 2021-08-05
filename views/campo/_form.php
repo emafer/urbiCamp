@@ -15,6 +15,7 @@ use yii\widgets\ActiveForm;
     <?php \app\commands\HelperUrbiCampFormController::creaSelect2Comuni($form, $model, 'comune_id', ''); ?>
 
     <?= $form->field($model, 'nome')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'tipo')->dropDownList([1 => 'Internamento', 2 => 'Internamento libero'], ['maxlength' => true]) ?>
 
     <?= $form->field($model, 'data_creazione')->textInput(['type' => 'date']) ?>
 

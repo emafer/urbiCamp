@@ -38,14 +38,7 @@ use yii\widgets\ActiveForm;
 </div>
 
     <?= $form->field($model, 'oggetto')->textInput(['maxlength' => true]) ?>
-    <div class="row">
-        <div class="col-md-6">
-            <?php
-            \app\commands\HelperUrbiCampFormController::creaSelect2Anagrafica($form, $model, 'interessati', 'Scegli un interessato...');
-            ?>
-        </div>
-        <div class="col-md-6"></div>
-    </div>
+
 
 <fieldset>
     <legend>Dati Studio</legend>
@@ -56,7 +49,19 @@ use yii\widgets\ActiveForm;
         <div class="col-md-6">
             <?= $form->field($model, 'descrizione_en')->textarea() ?>
         </div>
-    </div><div class="row">
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <?php
+            \app\commands\HelperUrbiCampFormController::creaSelect2Anagrafica($form, $model, 'interessati', 'Scegli un interessato...');
+            ?>
+        </div>
+        <div class="col-md-6">
+            <?php echo $form->field($model, 'nota_matita')->checkbox();?>
+            <?= $form->field($model, 'testoNotaMatita')->textarea() ?>
+        </div>
+    </div>
+    <div class="row">
         <div class="col-md-6">
             <?php
             echo $form->field($model, 'documento_di_riferimento_id')->widget(Select2::class, [
@@ -115,6 +120,12 @@ use yii\widgets\ActiveForm;
                 ''
             );
             ?>
+        </div>
+        <div class="col-md-6">
+            <?php echo $form->field($model, 'manoscritto')->checkbox();?>
+        </div>
+        <div class="col-md-6">
+            <?php echo $form->field($model, 'disegno')->checkbox();?>
         </div>
     </div>
     <?= $form->field($model, 'note')->textarea() ?>

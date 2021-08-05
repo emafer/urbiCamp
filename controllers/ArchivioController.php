@@ -2,17 +2,19 @@
 
 namespace app\controllers;
 
+use webvimark\modules\UserManagement\components\UserConfig;
 use Yii;
 use app\models\Archivio;
 use app\search;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\User;
 
 /**
  * ArchivioController implements the CRUD actions for Archivio model.
  */
-class ArchivioController extends Controller
+class ArchivioController extends  UrbiCampController
 {
     /**
      * {@inheritdoc}

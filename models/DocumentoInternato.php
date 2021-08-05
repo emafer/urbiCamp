@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "documento_internato".
@@ -13,7 +14,7 @@ use Yii;
  * @property Internato $internato
  * @property Documento $documento
  */
-class DocumentoInternato extends \yii\db\ActiveRecord
+class DocumentoInternato extends  ActiveRecord
 {
     /**
      * {@inheritdoc}

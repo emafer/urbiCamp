@@ -9,6 +9,7 @@ use yii\web\Controller;
 class UrbiCampController extends Controller
 {
 
+    public $freeAccessActions = ['index', 'lista', 'view', 'list'];
     /**
      * {@inheritdoc}
      */

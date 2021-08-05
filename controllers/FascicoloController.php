@@ -18,7 +18,7 @@ use yii\web\UploadedFile;
 /**
  * FascicoloController implements the CRUD actions for Fascicolo model.
  */
-class FascicoloController extends Controller
+class FascicoloController extends  UrbiCampController
 {
     /**
      * {@inheritdoc}

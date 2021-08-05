@@ -12,7 +12,7 @@ use yii\filters\VerbFilter;
 /**
  * StatoController implements the CRUD actions for Stato model.
  */
-class StatoController extends Controller
+class StatoController extends  UrbiCampController
 {
     /**
      * {@inheritdoc}

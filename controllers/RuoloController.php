@@ -2,17 +2,17 @@
 
 namespace app\controllers;
 
-use app\search\ComuneSearch;
 use Yii;
-use app\models\Comune;
+use app\models\Ruolo;
+use app\search\RuoloSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * ComuneController implements the CRUD actions for Comune model.
+ * RuoloController implements the CRUD actions for Ruolo model.
  */
-class ComuneController extends  UrbiCampController
+class RuoloController extends Controller
 {
     /**
      * {@inheritdoc}
@@ -20,11 +20,8 @@ class ComuneController extends  UrbiCampController
     public function behaviors()
     {
         return [
-            'ghost-access'=> [
-                'class' => 'webvimark\modules\UserManagement\components\GhostAccessControl',
-            ],
             'verbs' => [
-                'class' => VerbFilter::class,
+                'class' => VerbFilter::className(),
                 'actions' => [
                     'delete' => ['POST'],
                 ],
@@ -33,12 +30,12 @@ class ComuneController extends  UrbiCampController
     }
 
     /**
-     * Lists all Comune models.
+     * Lists all Ruolo models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new ComuneSearch();
+        $searchModel = new RuoloSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -48,7 +45,7 @@ class ComuneController extends  UrbiCampController
     }
 
     /**
-     * Displays a single Comune model.
+     * Displays a single Ruolo model.
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
@@ -61,13 +58,13 @@ class ComuneController extends  UrbiCampController
     }
 
     /**
-     * Creates a new Comune model.
+     * Creates a new Ruolo model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new Comune();
+        $model = new Ruolo();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -79,7 +76,7 @@ class ComuneController extends  UrbiCampController
     }
 
     /**
-     * Updates an existing Comune model.
+     * Updates an existing Ruolo model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -99,7 +96,7 @@ class ComuneController extends  UrbiCampController
     }
 
     /**
-     * Deletes an existing Comune model.
+     * Deletes an existing Ruolo model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -113,18 +110,18 @@ class ComuneController extends  UrbiCampController
     }
 
     /**
-     * Finds the Comune model based on its primary key value.
+     * Finds the Ruolo model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Comune the loaded model
+     * @return Ruolo the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Comune::findOne($id)) !== null) {
+        if (($model = Ruolo::findOne($id)) !== null) {
             return $model;
         }
 
-        throw new NotFoundHttpException('The requested page does not exist.');
+        throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
     }
 }

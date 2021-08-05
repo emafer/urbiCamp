@@ -12,7 +12,7 @@ use yii\filters\VerbFilter;
 /**
  * ProvinciaController implements the CRUD actions for Provincia model.
  */
-class ProvinciaController extends Controller
+class ProvinciaController extends  UrbiCampController
 {
     /**
      * {@inheritdoc}

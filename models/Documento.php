@@ -13,6 +13,9 @@ use Yii;
  * @property int $fascicolo_id
  * @property string $oggetto
  * @property string $data
+ * @property boolean $nota_matita
+ * @property boolean $manoscritto
+ * @property string $testoNotaMatita
  * @property int $data_fittizia
  * @property int|null $documento_di_riferimento_id
  * @property Tipologia|null $tipologia
@@ -37,7 +40,7 @@ use Yii;
  * @property DocumentoImmagine[] $documentoImmagini
  * @property Immagine[] $immagini
  */
-class Documento extends \yii\db\ActiveRecord
+class Documento extends  UrbiModel
 {
     /**
      * {@inheritdoc}
@@ -55,7 +58,7 @@ class Documento extends \yii\db\ActiveRecord
         return [
             [['fascicolo_id', 'oggetto', 'data', 'data_fittizia', 'tipologia_id'], 'required'],
             [['fascicolo_id', 'data_fittizia', 'documento_di_riferimento_id'], 'integer'],
-            [['data', 'note', 'protocollo', 'descrizione', 'descrizione_en'], 'safe'],
+            [['data', 'manoscritto','disegno', 'note', 'protocollo', 'descrizione', 'descrizione_en', 'testoNotaMatita', 'nota_matita'], 'safe'],
             [['oggetto'], 'string', 'max' => 255],
             [['documento_di_riferimento_id'], 'exist', 'skipOnError' => true, 'targetClass' => Documento::class, 'targetAttribute' => ['documento_di_riferimento_id' => 'id']],
             [['fascicolo_id'], 'exist', 'skipOnError' => true, 'targetClass' => Fascicolo::class, 'targetAttribute' => ['fascicolo_id' => 'id']],
@@ -69,12 +72,15 @@ class Documento extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
+            'nota_matita' => 'Presenza di note aggiuntive',
+            'testoNotaMatita' => 'testo note',
             'fascicolo_id' => 'Fascicolo ID',
             'fascicolo.nomeCompleto' => 'Fascicolo',
             'oggetto' => 'Oggetto',
+            'disegno' => 'Presenza di disegno',
             'tipologia_id' => 'Tipologia',
             'data' => 'Data',
-            'data_fittizia' => 'Data Fittizia',
+            'data_fittizia' => 'Data presunta',
             'note' => 'Note',
             'descrizione_en' => 'English description',
             'documento_di_riferimento_id' => 'Documento Di Riferimento ID',

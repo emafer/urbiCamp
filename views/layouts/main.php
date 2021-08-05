@@ -31,7 +31,7 @@ AppAsset::register($this);
     <?php
     NavBar::begin([
         'brandLabel' => Yii::$app->name,
-        'brandUrl' => Yii::$app->homeUrl,
+        'brandUrl' => '/index.php?r=site%2Findex',
         'options' => [
             'class' => 'navbar-inverse navbar-fixed-top',
         ],
@@ -42,7 +42,7 @@ AppAsset::register($this);
         ['label' => 'Archivi',
             'items' =>[
                 ['label' => 'Fondi', 'url' => ['/archivio']],
-                ['label' => 'Faldoni', 'url' => ['/faldone']],
+                ['label' => 'Buste', 'url' => ['/faldone']],
                 ['label' => 'Fascicoli', 'url' => ['/fascicolo']],
                 ['label' => 'Tipologie', 'url' => ['/tipologia']],
                 ['label' => 'Campi', 'url' => ['/campo']],

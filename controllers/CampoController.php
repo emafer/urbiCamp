@@ -12,7 +12,7 @@ use yii\filters\VerbFilter;
 /**
  * CampoController implements the CRUD actions for Campo model.
  */
-class CampoController extends Controller
+class CampoController extends  UrbiCampController
 {
     /**
      * {@inheritdoc}

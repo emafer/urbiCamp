@@ -11,7 +11,7 @@ use Yii;
  * @property string $descrizione
  * @property string $abbr
  */
-class Tipologia extends \yii\db\ActiveRecord
+class Tipologia extends  UrbiModel
 {
     /**
      * {@inheritdoc}

@@ -12,7 +12,7 @@ use yii\filters\VerbFilter;
 /**
  * FaldoneImmagineController implements the CRUD actions for FaldoneImmagine model.
  */
-class FaldoneImmagineController extends Controller
+class FaldoneImmagineController extends  UrbiCampController
 {
     /**
      * {@inheritdoc}

@@ -13,7 +13,7 @@ use yii\filters\VerbFilter;
 /**
  * TipologiaController implements the CRUD actions for Tipologia model.
  */
-class TipologiaController extends Controller
+class TipologiaController extends  UrbiCampController
 {
     /**
      * {@inheritdoc}

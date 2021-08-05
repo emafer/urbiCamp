@@ -6,6 +6,7 @@ use app\query\FascicoloImmagineQuery;
 use app\query\FascicoloQuery;
 use app\query\ImmagineQuery;
 use Yii;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "fascicolo_immagine".
@@ -17,7 +18,7 @@ use Yii;
  * @property Immagine $immagine
  * @property Fascicolo $fascicolo
  */
-class FascicoloImmagine extends \yii\db\ActiveRecord
+class FascicoloImmagine extends  ActiveRecord
 {
     /**
      * {@inheritdoc}

@@ -23,7 +23,7 @@ use Yii;
  * @property Immagine[] $immagines
  * @property Fascicolo[] $fascicolos
  */
-class Faldone extends \yii\db\ActiveRecord
+class Faldone extends  UrbiModel
 {
     /**
      * {@inheritdoc}

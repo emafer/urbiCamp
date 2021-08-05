@@ -9,18 +9,16 @@ use Yii;
  *
  * @property int $id
  * @property int $anagrafica_id
- * @property int|null $provenienza_da_id
- * @property int|null $provienza_da_campo_id
- * @property int|null $campo_differente_id
- * @property string|null $matricola
- * @property string|null $data_arrivo
- * @property string|null $data_uscita
+ * @property int $autore
+ * @property string $creato_il
+ * @property int $modificato_da
+ * @property string $modificato_il
  *
  * @property DocumentoInternato[] $documentoInternatos
  * @property Documento[] $documentos
- * @property Comune $provenienzaDa
- * @property Campo $provienzaDaCampo
- * @property Campo $campoDifferente
+ * @property FascicoloInternato[] $fascicoloInternatos
+ * @property Fascicolo[] $fascicolos
+ * @property InternatoCampo[] $internatoCampi;
  * @property Anagrafica $anagrafica
  */
 class Internato extends \yii\db\ActiveRecord
@@ -40,14 +38,10 @@ class Internato extends \yii\db\ActiveRecord
     {
         return [
             [['anagrafica_id'], 'required'],
-            [['anagrafica_id', 'provenienza_da_id', 'provienza_da_campo_id', 'campo_differente_id'], 'integer'],
-            [['data_arrivo', 'data_uscita'], 'safe'],
-            [['matricola'], 'string', 'max' => 255],
+            [['anagrafica_id', 'autore', 'modificato_da'], 'integer'],
+            [['creato_il', 'modificato_il'], 'safe'],
             [['anagrafica_id'], 'unique'],
-            [['provenienza_da_id'], 'exist', 'skipOnError' => true, 'targetClass' => Comune::class, 'targetAttribute' => ['provenienza_da_id' => 'id']],
-            [['provienza_da_campo_id'], 'exist', 'skipOnError' => true, 'targetClass' => Campo::class, 'targetAttribute' => ['provienza_da_campo_id' => 'id']],
-            [['campo_differente_id'], 'exist', 'skipOnError' => true, 'targetClass' => Campo::class, 'targetAttribute' => ['campo_differente_id' => 'id']],
-            [['anagrafica_id'], 'exist', 'skipOnError' => true, 'targetClass' => Anagrafica::class, 'targetAttribute' => ['anagrafica_id' => 'id']],
+            [['anagrafica_id'], 'exist', 'skipOnError' => true, 'targetClass' => Anagrafica::className(), 'targetAttribute' => ['anagrafica_id' => 'id']],
         ];
     }
 
@@ -59,11 +53,10 @@ class Internato extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'anagrafica_id' => 'Anagrafica ID',
-            'provenienza_da_id' => 'Provenienza Da ID',
-            'provienza_da_campo_id' => 'Provienza Da Campo ID',
-            'matricola' => 'Matricola',
-            'data_arrivo' => 'Data Arrivo',
-            'data_uscita' => 'Data Uscita',
+            'autore' => 'Autore',
+            'creato_il' => 'Creato Il',
+            'modificato_da' => 'Modificato Da',
+            'modificato_il' => 'Modificato Il',
         ];
     }
 
@@ -74,7 +67,7 @@ class Internato extends \yii\db\ActiveRecord
      */
     public function getDocumentoInternatos()
     {
-        return $this->hasMany(DocumentoInternato::class, ['internato_id' => 'id']);
+        return $this->hasMany(DocumentoInternato::className(), ['internato_id' => 'id']);
     }
 
     /**
@@ -84,37 +77,47 @@ class Internato extends \yii\db\ActiveRecord
      */
     public function getDocumentos()
     {
-        return $this->hasMany(Documento::class, ['id' => 'documento_id'])->viaTable('documento_internato', ['internato_id' => 'id']);
+        return $this->hasMany(Documento::className(), ['id' => 'documento_id'])->viaTable('documento_internato', ['internato_id' => 'id']);
+    }
+    /**
+     * Gets query for [[DocumentoInternatos]].
+     *
+     * @return \yii\db\ActiveQuery|\app\query\DocumentoInternatoQuery
+     */
+    public function getInternatoCampi()
+    {
+        return $this->hasMany(InternatoCampo::class, ['internato_id' => 'id']);
     }
 
     /**
-     * Gets query for [[ProvenienzaDa]].
+     * Gets query for [[Campi]].
      *
-     * @return \yii\db\ActiveQuery|\app\query\ComuneQuery
+     * @return \yii\db\ActiveQuery|\app\query\DocumentoQuery
      */
-    public function getProvenienzaDa()
+    public function getCampi()
     {
-        return $this->hasOne(Comune::class, ['id' => 'provenienza_da_id']);
+        return $this->hasMany(Campo::class, ['id' => 'campo_id'])->viaTable('internato_campo', ['internato_id' => 'id'])
+            ->orderBy(['data_arrivo' => SORT_DESC]);;
     }
 
     /**
-     * Gets query for [[ProvienzaDaCampo]].
+     * Gets query for [[FascicoloInternatos]].
      *
-     * @return \yii\db\ActiveQuery|\app\query\CampoQuery
+     * @return \yii\db\ActiveQuery|\app\query\FascicoloInternatoQuery
      */
-    public function getProvienzaDaCampo()
+    public function getFascicoloInternatos()
     {
-        return $this->hasOne(Campo::class, ['id' => 'provienza_da_campo_id']);
+        return $this->hasMany(FascicoloInternato::className(), ['internato_id' => 'id']);
     }
 
     /**
-     * Gets query for [[CampoDifferente]].
+     * Gets query for [[Fascicolos]].
      *
-     * @return \yii\db\ActiveQuery|\app\query\CampoQuery
+     * @return \yii\db\ActiveQuery|\app\query\FascicoloQuery
      */
-    public function getCampoDifferente()
+    public function getFascicolos()
     {
-        return $this->hasOne(Campo::class, ['id' => 'campo_differente_id']);
+        return $this->hasMany(Fascicolo::className(), ['id' => 'fascicolo_id'])->viaTable('fascicolo_internato', ['internato_id' => 'id']);
     }
 
     /**
@@ -124,7 +127,7 @@ class Internato extends \yii\db\ActiveRecord
      */
     public function getAnagrafica()
     {
-        return $this->hasOne(Anagrafica::class, ['id' => 'anagrafica_id']);
+        return $this->hasOne(Anagrafica::className(), ['id' => 'anagrafica_id']);
     }
 
     /**
@@ -134,10 +137,5 @@ class Internato extends \yii\db\ActiveRecord
     public static function find()
     {
         return new \app\query\InternatoQuery(get_called_class());
-    }
-
-    public function getNome()
-    {
-        return $this->anagrafica->getNomeCompleto();
     }
 }

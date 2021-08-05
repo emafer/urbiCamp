@@ -101,7 +101,7 @@ $config = [
         */
     ],
     'params' => $params,
-    'defaultRoute' => 'archivio/index',
+    'defaultRoute' => 'site/index',
 ];
 if (YII_ENV_DEV) {
     // configuration adjustments for 'dev' environment

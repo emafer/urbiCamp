@@ -4,11 +4,11 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
-/* @var $model app\search\InternatoSearch */
+/* @var $model app\search\RuoloSearch */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="internato-search">
+<div class="ruolo-search">
 
     <?php $form = ActiveForm::begin([
         'action' => ['index'],
@@ -17,8 +17,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'id') ?>
 
-    <?= $form->field($model, 'anagrafica.cognome') ?>
-    <?= $form->field($model, 'anagrafica.nome') ?>
+    <?= $form->field($model, 'ruolo') ?>
 
     <div class="form-group">
         <?= Html::submitButton(Yii::t('app', 'Search'), ['class' => 'btn btn-primary']) ?>

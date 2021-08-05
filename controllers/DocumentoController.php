@@ -18,7 +18,7 @@ use yii\filters\VerbFilter;
 /**
  * DocumentoController implements the CRUD actions for Documento model.
  */
-class DocumentoController extends Controller
+class DocumentoController extends  UrbiCampController
 {
     /**
      * {@inheritdoc}

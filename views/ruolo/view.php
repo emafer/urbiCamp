@@ -4,14 +4,14 @@ use yii\helpers\Html;
 use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\Internato */
+/* @var $model app\models\Ruolo */
 
 $this->title = $model->id;
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Internatos'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Ruolos'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
-<div class="internato-view">
+<div class="ruolo-view">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
@@ -30,12 +30,8 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'attributes' => [
             'id',
-            'anagrafica.nomeCompleto',
+            'ruolo',
         ],
     ]) ?>
 
 </div>
-<?php
-foreach ($model->internatoCampi as $item) {
-    echo 'In ' . $item->campo->tipoLabel . ' a ' . $item->campo->comune->nome . ' dal '. $item->data_arrivo . ' al ' .  $item->data_uscita . ' <br/>';
-}

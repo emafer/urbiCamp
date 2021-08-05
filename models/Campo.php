@@ -10,13 +10,14 @@ use Yii;
  *
  * @property int $id
  * @property int $comune_id
+ * @property int $tipo
  * @property string $nome
  * @property string|null $data_creazione
  *
  * @property Comune $comune
  * @property Internato[] $internatos
  */
-class Campo extends \yii\db\ActiveRecord
+class Campo extends UrbiModel
 {
     /**
      * {@inheritdoc}
@@ -33,8 +34,8 @@ class Campo extends \yii\db\ActiveRecord
     {
         return [
             [['comune_id', 'nome'], 'required'],
-            [['comune_id'], 'integer'],
-            [['data_creazione'], 'safe'],
+            [['comune_id', 'tipo'], 'integer'],
+            [['data_creazione', 'tipo'], 'safe'],
             [['nome'], 'string', 'max' => 255],
             [['comune_id'], 'exist', 'skipOnError' => true, 'targetClass' => Comune::class, 'targetAttribute' => ['comune_id' => 'id']],
         ];
@@ -47,7 +48,10 @@ class Campo extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'comune_id' => 'Comune ID',
+            'comune_id' => 'Comune',
+            'comune.nome' => 'Comune',
+            'tipo' => 'Tipologia',
+            'tipoLabel' => 'Tipologia',
             'nome' => 'Nome',
             'data_creazione' => 'Data Creazione',
         ];
@@ -80,5 +84,17 @@ class Campo extends \yii\db\ActiveRecord
     public static function find()
     {
         return new CampoQuery(get_called_class());
+    }
+    public function getTipoLabel()
+    {
+        switch ($this->tipo){
+            case 1:
+                $tipo = 'Campo di internamento';
+                break;
+            case 2:
+                $tipo = 'Internamento libero';
+                break;
+        }
+        return $tipo;
     }
 }

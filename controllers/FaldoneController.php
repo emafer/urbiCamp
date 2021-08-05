@@ -13,7 +13,7 @@ use yii\filters\VerbFilter;
 /**
  * FaldoneController implements the CRUD actions for Faldone model.
  */
-class FaldoneController extends Controller
+class FaldoneController extends  UrbiCampController
 {
     /**
      * {@inheritdoc}

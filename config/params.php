@@ -5,6 +5,5 @@ return [
     'senderEmail' => 'noreply@example.com',
     'senderName' => 'Example.com mailer',
     'lang' => 'it',
-
     'bsDependencyEnabled' => false,
 ];

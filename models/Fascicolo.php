@@ -24,7 +24,7 @@ use app\query\ImmagineQuery;
  * @property FascicoloInternato[] $fascicoloInternati
  * @property Internato[] $internati
  */
-class Fascicolo extends \yii\db\ActiveRecord
+class Fascicolo extends  UrbiModel
 {
     /**
      * {@inheritdoc}
