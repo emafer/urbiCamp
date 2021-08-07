@@ -8,6 +8,7 @@ use yii\widgets\ActiveForm;
 /* @var $model app\models\Anagrafica */
 /* @var $form yii\widgets\ActiveForm */
 /* @var $ajax boolean */
+/* @var $fid string */
 ?>
 
 <div class="anagrafica-form">
@@ -43,7 +44,7 @@ use yii\widgets\ActiveForm;
               'label' => 'Crea',
               'useWithActiveForm' => 'add-anag-form',
               'ajaxOptions' => [
-                  'url' => 'index.php?r=anagrafica/create&via=ajax',
+                  'url' => 'index.php?r=anagrafica/create&via=ajax&fid=' . $fid,
                   'type' => 'POST',
                   'processData' => false, // Don't process the files
                   'contentType' => false, // Set content type to false as jQuery will tell the server its a query string request
@@ -52,6 +53,7 @@ use yii\widgets\ActiveForm;
                              if (data.status == true)
                                 {
                                     $('#modalAnagCreate modal-content').html('');
+                                    $('#' + data.fid ).append('<option value=\"' + data.id + '\" selected=\"selected\">' + data.nome + '</option>');
                                     $('#closeModal').click();
                                 }                                            
             }"),

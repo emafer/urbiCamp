@@ -25,8 +25,10 @@ use yii\widgets\ActiveForm;
         <div class="col-md-9">
             <?php $form = ActiveForm::begin([
                 'id' => 'add-form',
-                'enctype' => 'multipart/form-data',
-                'options' => ['class' => 'form-inline'],
+                'options' => [
+                        'class' => 'form-inline',
+                        'enctype' => 'multipart/form-data'
+                ],
             ]); ?>
             <?= $form->field($model, 'path')->fileInput(['onchange' => 'getFileData(this);']) ?>
             <?= $form->field($model, 'nome')->textInput(['maxlength' => true]) ?>
@@ -50,7 +52,7 @@ use yii\widgets\ActiveForm;
                             'success' => new \yii\web\JsExpression("function(data) {
                              if (data.status == true)
                                 {
-                                    $('#modalImgCreate modal-content').html('');
+                                    $('#modalImgCreate .modal-body').html('');
                                     $('#closeModal').click();
                                 }                                            
             }"),

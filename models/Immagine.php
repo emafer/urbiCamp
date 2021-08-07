@@ -8,6 +8,7 @@ use app\query\FascicoloImmagineQuery;
 use app\query\FascicoloQuery;
 use app\query\ImmagineQuery;
 use Yii;
+use yii\imagine\Image;
 use yii\web\UploadedFile;
 
 /**
@@ -61,10 +62,11 @@ class Immagine extends UrbiModel
 
     public function upload()
     {
-        var_dump($_FILES);
         if ($this->validate()) {
             $nome = uniqid(). '.' . $this->path->extension;
             $this->path->saveAs(PATHURBI . '/web/uploads/' . $nome );
+            Image::thumbnail('@webroot/uploads/' . $nome, 200, 300)
+                ->save(\Yii::getAlias('@webroot/uploads/thumb-' . $nome), ['quality' => 50]);
             $post = Yii::$app->request->post('Immagine');;
             $this->descrizione = filter_var( $post['descrizione'], FILTER_SANITIZE_STRING);
             $this->path = $nome;
@@ -125,6 +127,13 @@ class Immagine extends UrbiModel
 
     public function beforeDelete()
     {
-        return unlink(PATHURBI . '/web/uploads/' . $this->path ) && parent::beforeDelete();
+        $ok = true;
+        if (is_file(PATHURBI . '/web/uploads/' . $this->path)) {
+            $ok = $ok && unlink(PATHURBI . '/web/uploads/' . $this->path );
+        }
+        if (is_file(PATHURBI . '/web/uploads/thumb-' . $this->path)) {
+            $ok = $ok && unlink(PATHURBI . '/web/uploads/thumb-' . $this->path );
+        }
+        return $ok && parent::beforeDelete();
     }
 }

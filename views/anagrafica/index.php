@@ -29,8 +29,15 @@ $this->params['breadcrumbs'][] = $this->title;
             'nome',
             'nato',
             'morto',
-            ['class' => 'yii\grid\ActionColumn'],
-        ],
+            ['class' => 'yii\grid\ActionColumn',
+                'template' =>'{view} {update} {delete} {lista}',
+                'buttons' => [
+                    'lista' => function ($url, $model, $key) {
+                        return Html::a('<i class="glyphicon glyphicon-list"></i>', ['familiare/lista', 'anagrafica'=>$model->id], ['alt'=>'familiari', 'title' => 'familiari']);
+                    },
+                    ],
+                ],
+            ],
     ]); ?>
 
 

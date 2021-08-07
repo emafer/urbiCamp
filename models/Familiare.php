@@ -46,9 +46,9 @@ class Familiare extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'anagrafica_id' => 'Anagrafica ID',
-            'familiare_id' => 'Familiare ID',
-            'ruolo_id' => 'Ruolo ID',
+            'anagrafica_id' => 'Anagrafica',
+            'familiare_id' => 'Familiare',
+            'ruolo_id' => 'Ruolo',
         ];
     }
 

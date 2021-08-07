@@ -65,8 +65,8 @@ class Anagrafica extends UrbiModel
     {
         return [
             'id' => 'ID',
-            'nato_a_id' => 'Nato A ID',
-            'morto_a_id' => 'Morto A ID',
+            'nato_a_id' => 'Nato A',
+            'morto_a_id' => 'Morto A',
             'cognome' => 'Cognome',
             'nome' => 'Nome',
             'nato_il' => 'Nato Il',

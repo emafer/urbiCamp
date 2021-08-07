@@ -5,8 +5,9 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\Anagrafica */
 /* @var $ajax boolean */
+/* @var $fid string */
 
-$this->title = 'Create Anagrafica';
+$this->title = 'Crea Anagrafica';
 $this->params['breadcrumbs'][] = ['label' => 'Anagraficas', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -27,7 +28,8 @@ $this->params['breadcrumbs'][] = $this->title;
 <?php } ?>
     <?= $this->render('_form', [
         'model' => $model,
-        'ajax' => $ajax
+        'ajax' => $ajax,
+        'fid' => $fid ?? ''
     ]) ?>
 
 </div>

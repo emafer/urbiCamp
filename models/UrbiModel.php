@@ -5,6 +5,7 @@ namespace app\models;
 use Faker\Provider\DateTime;
 use webvimark\modules\UserManagement\components\UserConfig;
 use yii\db\ActiveRecord;
+use yii\imagine\Image;
 use yii\web\User;
 
 /**

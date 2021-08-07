@@ -2,6 +2,8 @@
 
 namespace app\controllers;
 
+use app\search\AnagraficaSearch;
+use app\search\FamiliareSearch;
 use Yii;
 use app\models\Familiare;
 use yii\data\ActiveDataProvider;
@@ -65,7 +67,11 @@ class FamiliareController extends UrbiCampController
      */
     public function actionCreate()
     {
-        $model = new Familiare();
+        if (Yii::$app->request->get('anagrafica')) {
+            $model = new Familiare(['anagrafica_id' => Yii::$app->request->get('anagrafica')]);
+        } else{
+            $model = new Familiare();
+        }
         if ($model->load(Yii::$app->request->post())) {
             $model->save();
             if ($model->ruolo->opposto) {
@@ -167,5 +173,22 @@ class FamiliareController extends UrbiCampController
         }
 
         throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
+    }
+
+
+    /**
+     * Lists all Fascicolo models in archivio.
+     * @return mixed
+     */
+    public function actionLista()
+    {
+        $searchModel = new FamiliareSearch(['anagrafica_id' => Yii::$app->request->get('anagrafica')] );
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        return $this->render('lista', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+            'anagrafica' => AnagraficaSearch::findOne(Yii::$app->request->get('anagrafica')),
+            'anagrafica_id' => Yii::$app->request->get('anagrafica')
+        ]);
     }
 }

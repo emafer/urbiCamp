@@ -77,13 +77,15 @@ class AnagraficaController extends UrbiCampController
                 Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
                 return $this->asJson(['status' => true,
                     'id' => $model->id,
+                    'fid' => Yii::$app->request->get('fid'),
                     'nome' => $model->getNomeCompleto()
                 ]);
             }
 
             return $this->renderAjax('create', [
                 'model' => $model,
-                'ajax' => true
+                'ajax' => true,
+                'fid' => Yii::$app->request->get('fid')
             ]);
         } else {
             if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -113,6 +115,7 @@ class AnagraficaController extends UrbiCampController
 
         return $this->render('update', [
             'model' => $model,
+            'ajax' => false
         ]);
     }
 

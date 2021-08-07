@@ -14,23 +14,6 @@ use yii\filters\VerbFilter;
  */
 class ComuneController extends  UrbiCampController
 {
-    /**
-     * {@inheritdoc}
-     */
-    public function behaviors()
-    {
-        return [
-            'ghost-access'=> [
-                'class' => 'webvimark\modules\UserManagement\components\GhostAccessControl',
-            ],
-            'verbs' => [
-                'class' => VerbFilter::class,
-                'actions' => [
-                    'delete' => ['POST'],
-                ],
-            ],
-        ];
-    }
 
     /**
      * Lists all Comune models.
@@ -68,14 +51,33 @@ class ComuneController extends  UrbiCampController
     public function actionCreate()
     {
         $model = new Comune();
+        if ($this->isAjax()) {
+            if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->asJson([
+                'status' => true,
+                'id' => $model->id,
+                'fid' => Yii::$app->request->get('fid'),
+                'nome' => $model->nome
+            ]);
         }
 
-        return $this->render('create', [
-            'model' => $model,
-        ]);
+            return $this->renderAjax('create', [
+                'model' => $model,
+                'ajax' => true,
+                'fid' => Yii::$app->request->get('fid')
+            ]);
+        } else {
+            if ($model->load(Yii::$app->request->post()) && $model->save()) {
+                return $this->redirect(['view', 'id' => $model->id]);
+            }
+
+            return $this->render('create', [
+                'model' => $model,
+                'ajax' => false,
+            ]);
+        }
     }
 
     /**
@@ -95,6 +97,7 @@ class ComuneController extends  UrbiCampController
 
         return $this->render('update', [
             'model' => $model,
+            'ajax' => false,
         ]);
     }
 

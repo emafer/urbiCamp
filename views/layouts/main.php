@@ -95,6 +95,14 @@ AppAsset::register($this);
                 </div></div>
         </div>
     </div>
+    <div class="modal remote fade" id="modalCreate">
+        <div class="modal-dialog">
+            <div class="modal-content  loader-lg"> <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div></div>
+        </div>
+    </div>
 
     <div class="container">
         <p class="pull-left">&copy; Casa della Memoria - Urbisaglia <?= date('Y') ?></p>

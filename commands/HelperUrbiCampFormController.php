@@ -29,6 +29,13 @@ class HelperUrbiCampFormController
         }
         $comuni = \yii\helpers\ArrayHelper::map(\app\models\Comune::find()->all(), 'id', 'nome');
         echo $form->field($model, $attribute)->dropDownList($comuni, $options);
+        echo Html::a('<span class="glyphicon glyphicon-plus"></span>',
+            \yii\helpers\Url::toRoute(['/comune/create','via' => 'ajax', 'fid'=>strtolower(str_replace('app\models\\', '', get_class($model))) . '-' . $attribute]),
+            [
+                'data-toggle'=>'modal',
+                'data-target'=>'#modalCreate',
+            ]
+        );
     }
     public static function creaSelect2Anagrafica(
         ActiveForm $form,
@@ -37,6 +44,7 @@ class HelperUrbiCampFormController
         string     $placeholder,
         bool       $multiple = true
     ) {
+        $multiple = true;
         $items =  \yii\helpers\ArrayHelper::map(\app\models\Anagrafica::find()->all(), 'id', 'nomeCompleto');
         echo $form->field($model, $attribute)->widget(Select2::class, [
     'data' => $items,
@@ -68,7 +76,7 @@ class HelperUrbiCampFormController
     ],
 ]);
         echo Html::a('<span class="glyphicon glyphicon-plus"></span>',
-            \yii\helpers\Url::toRoute(['/anagrafica/create','via' => 'ajax']),
+            \yii\helpers\Url::toRoute(['/anagrafica/create','via' => 'ajax', 'fid'=>strtolower(str_replace('app\models\\', '', get_class($model))) . '-' . $attribute]),
             [
                 'data-toggle'=>'modal',
                 'data-target'=>'#modalAnagCreate',
@@ -76,6 +84,7 @@ class HelperUrbiCampFormController
         );
         echo '<input type="hidden" name="cambia' . ucfirst($attribute) . '" id="cambia-' . $attribute . '" value="0"/>';
     }
+
     public static function creaSelect2Internati(
         ActiveForm $form,
         Model      $model,
@@ -106,5 +115,4 @@ class HelperUrbiCampFormController
         ]);
 
         echo '<input type="hidden" name="cambiaInternati" id="cambia-internati" value="0"/>';
-    }
-}
+    }}
