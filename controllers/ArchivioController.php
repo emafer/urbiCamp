@@ -16,23 +16,6 @@ use yii\web\User;
  */
 class ArchivioController extends  UrbiCampController
 {
-    /**
-     * {@inheritdoc}
-     */
-    public function behaviors()
-    {
-        return [
-            'ghost-access'=> [
-                'class' => 'webvimark\modules\UserManagement\components\GhostAccessControl',
-            ],
-            'verbs' => [
-                'class' => VerbFilter::class,
-                'actions' => [
-                    'delete' => ['POST'],
-                ],
-            ],
-        ];
-    }
 
     /**
      * Lists all Archivio models.
@@ -72,7 +55,7 @@ class ArchivioController extends  UrbiCampController
         $model = new Archivio();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['faldone/lista', 'fondo' => $model->id]);
         }
 
         return $this->render('create', [

@@ -87,7 +87,7 @@ class HelperUrbiCampFormController
         $items =  \yii\helpers\ArrayHelper::map(\app\models\Internato::find()->all(), 'id', 'nome');
         echo $form->field($model, 'internati')->widget(Select2::class, [
             'data' => $items,
-            'options' => ['multiple'=> $multiple, 'placeholder' => 'Cerca per cognome', 'onchange'=>new JsExpression('$("#cambia-internati").val(1);')],
+            'options' => ['multiple'=> $multiple, 'placeholder' => $placeholder, 'onchange'=>new JsExpression('$("#cambia-internati").val(1);')],
             //    'pluginOptions' => [
             //        'allowClear' => true,
             //        'minimumInputLength' => 3,

@@ -8,8 +8,15 @@ use yii\web\Controller;
 
 class UrbiCampController extends Controller
 {
+    public array $freeAccessActions = [];
+    public function __construct($id, $module, $config = [])
+    {
+        if ($_SERVER['HTTP_HOST'] == 'urbicamp.it') {
+            $this->freeAccessActions = ['index', 'lista', 'view', 'list'];
+        }
+        parent::__construct($id, $module, $config);
+    }
 
-    public $freeAccessActions = ['index', 'lista', 'view', 'list'];
     /**
      * {@inheritdoc}
      */

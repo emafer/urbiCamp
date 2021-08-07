@@ -150,13 +150,21 @@ class AnagraficaController extends UrbiCampController
         $out = ['results' => ['id' => '', 'text' => '']];
         if (!is_null($q)) {
             $query = new Query();
-            $query->select('id, cognome AS text')
+            $query->select('id, cognome, nome')
                 ->from('anagrafica')
                 ->where(['like', 'cognome', $q])
                 ->limit(20);
             $command = $query->createCommand();
             $data = $command->queryAll();
-            $out['results'] = array_values($data);
+            $dati = array_values($data);
+            if (count($dati)) {
+                $out['results'] = [];
+            }
+            foreach ( $dati as $item) {
+                $out['results'][] = [
+                    'id' => $item['id'],
+                    'text' => $item['cognome'] . ' ' . $item['nome']];
+            }
         }
         elseif ($id > 0) {
             $out['results'] = ['id' => $id, 'text' => Anagrafica::find($id)->name];

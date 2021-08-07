@@ -15,23 +15,6 @@ use yii\filters\VerbFilter;
  */
 class FaldoneController extends  UrbiCampController
 {
-    /**
-     * {@inheritdoc}
-     */
-    public function behaviors()
-    {
-        return [
-            'ghost-access'=> [
-                'class' => 'webvimark\modules\UserManagement\components\GhostAccessControl',
-            ],
-            'verbs' => [
-                'class' => VerbFilter::class,
-                'actions' => [
-                    'delete' => ['POST'],
-                ],
-            ],
-        ];
-    }
 
     /**
      * Lists all Faldone models.
@@ -92,7 +75,8 @@ class FaldoneController extends  UrbiCampController
         }
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+
+            return $this->redirect(['fascicolo/lista', 'faldone' => $model->id]);
         }
 
         return $this->render('create', [

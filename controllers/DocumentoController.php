@@ -131,14 +131,15 @@ class DocumentoController extends  UrbiCampController
                 DocumentoInternato::deleteAll(['documento_id' => $model->id]);
                 $this->salvaDocInternati($documentoPost['internati'], $model, $session);
             }
-            if (Yii::$app->request->post('cambiaMittenti')) {
-                Mittenti::deleteAll(['documento_id' => $model->id]);
-                $this->salvaDocMittenti($documentoPost['mittenti'], $model, $session);
-            }
             if (Yii::$app->request->post('cambiaInteressati')) {
                 Interessato::deleteAll(['documento_id' => $model->id]);
                 $this->salvaDocInteressati($documentoPost['interessati'], $model, $session);
             }
+            if (Yii::$app->request->post('cambiaMittenti')) {
+                Mittenti::deleteAll(['documento_id' => $model->id]);
+                $this->salvaDocMittenti($documentoPost['mittenti'], $model, $session);
+            }
+
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
@@ -303,4 +304,5 @@ class DocumentoController extends  UrbiCampController
             };
         }
     }
+
 }

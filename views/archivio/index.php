@@ -38,6 +38,10 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
         ],
     ]); ?>
-
+<i>Struttura dei fondi d'archivio da usare;</i>
+    <ul>
+        <li><strong>Fondi Privati</strong>: inserire ogni fondo privato come se fosse una "busta" dell'archivio FONDO PRIVATO</li>
+        <li><strong>Fondi Bibliografici</strong>: inserire ogni autore come se fosse una "busta" e ogni libro come "fascicolo"</li>
+    </ul>
 
 </div>

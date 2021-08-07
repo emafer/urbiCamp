@@ -38,7 +38,11 @@ AppAsset::register($this);
     ]);
     $items = [
         ['label' => 'Home', 'url' => ['/site/index']],
-        ['label' => 'Documenti', 'url' => ['/documento/index']],
+        ['label' => 'Documenti',
+            'items' => [
+                ['label' => 'Documenti', 'url' => ['/documento/index']],
+                ['label' => 'Fotografie', 'url' => ['/fotografia/index']]
+            ]],
         ['label' => 'Archivi',
             'items' =>[
                 ['label' => 'Fondi', 'url' => ['/archivio']],

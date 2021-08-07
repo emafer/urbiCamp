@@ -61,14 +61,16 @@ class Immagine extends UrbiModel
 
     public function upload()
     {
+        var_dump($_FILES);
         if ($this->validate()) {
             $nome = uniqid(). '.' . $this->path->extension;
             $this->path->saveAs(PATHURBI . '/web/uploads/' . $nome );
-            $post = Yii::$app->request->post('Immagine');
+            $post = Yii::$app->request->post('Immagine');;
             $this->descrizione = filter_var( $post['descrizione'], FILTER_SANITIZE_STRING);
             $this->path = $nome;
             return true;
         } else {
+            var_dump($this->errors);
             return false;
         }
     }

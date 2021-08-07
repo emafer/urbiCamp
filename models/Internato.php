@@ -138,4 +138,9 @@ class Internato extends \yii\db\ActiveRecord
     {
         return new \app\query\InternatoQuery(get_called_class());
     }
+
+    public function getNome():string
+    {
+        return $this->anagrafica->getNomeCompleto();
+    }
 }
