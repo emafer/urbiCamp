@@ -10,6 +10,9 @@ use yii\widgets\ActiveForm;
 /* @var $ajax boolean */
 /* @var $targetModel string */
 /* @var $mid integer */
+if (!isset($ajax)) {
+    $ajax = false;
+}
 ?>
 <div class="row">
     <div class="immagine-form">
@@ -17,7 +20,7 @@ use yii\widgets\ActiveForm;
             <div id="preview">
                 <?php
                 if ($model->path) {
-                    echo '<img src="/uploads/' . $model->path . '" width="300">';
+                    echo '<img src="/web/uploads/' . $model->path . '" width="300">';
                 }
                 ?>
             </div>
@@ -35,8 +38,8 @@ use yii\widgets\ActiveForm;
             <?= $form->field($model, 'descrizione')->textInput(['maxlength' => true]) ?>
             <?= $form->field($model, 'lato')->dropDownList(['R' => 'R', 'V' => 'V', 'destra' => 'destra',
                 'sinistra' => 'sinistra', 'sotto' => 'sotto', 'sopra' => 'sopra', 'davanti' => 'davanti', 'dietro' => 'dietro']) ?>
-            <input type="hidden" name ="mid" value="<?php echo $mid;?>"/>
-            <input type="hidden" name ="targetModel" value="<?php echo $targetModel;?>"/>
+            <input type="hidden" name ="mid" value="<?php echo ($mid ?? '');?>"/>
+            <input type="hidden" name ="targetModel" value="<?php echo ($targetModel  ?? '');?>"/>
             <div class="form-group">
                 <?php
                 if ($ajax) {

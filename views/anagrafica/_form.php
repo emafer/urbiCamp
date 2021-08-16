@@ -52,7 +52,7 @@ use yii\widgets\ActiveForm;
                   'success' => new \yii\web\JsExpression("function(data) {
                              if (data.status == true)
                                 {
-                                    $('#modalAnagCreate modal-content').html('');
+                                    $('#add-anag-form').trigger('reset');
                                     $('#' + data.fid ).append('<option value=\"' + data.id + '\" selected=\"selected\">' + data.nome + '</option>');
                                     $('#closeModal').click();
                                 }                                            

@@ -56,7 +56,26 @@ class DocumentoController extends  UrbiCampController
             'dataProvider' => $dataProvider,
         ]);
     }
+    /**
+     * Lists all Documento models.
+     * @return mixed
+     */
+    public function actionCerca()
+    {
+        $searchModel = new DocumentoSearch();
+        $model = new Documento();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider->setSort([
+            'defaultOrder' => [
+                'data' => SORT_ASC
+            ]]);
 
+        return $this->renderAjax('cerca', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+            'model' => $model,
+        ]);
+    }
     /**
      * Displays a single Documento model.
      * @param integer $id

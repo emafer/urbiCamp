@@ -55,7 +55,7 @@ class Fascicolo extends  UrbiModel
         return [
             'id' => 'ID',
             'faldone.archivio.abbr' => 'Fondo',
-            'faldone.classificazione' => 'Class.',
+            'faldone.classificazione' => 'Busta',
             'faldone.descrizione' => 'Faldone',
             'descrizione' => 'Descrizione',
             'note' => 'Note',

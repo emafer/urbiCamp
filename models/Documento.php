@@ -73,9 +73,9 @@ class Documento extends  UrbiModel
         return [
             'id' => 'ID',
             'nota_matita' => 'Presenza di note aggiuntive',
-            'testoNotaMatita' => 'testo note',
+            'testoNotaMatita' => 'Testo delle note',
             'fascicolo_id' => 'Fascicolo ID',
-            'fascicolo.nomeCompleto' => 'Fascicolo',
+            'fascicolo.nomeCompleto' => 'Collocazione',
             'oggetto' => 'Oggetto',
             'disegno' => 'Presenza di disegno',
             'tipologia_id' => 'Tipologia',
@@ -84,10 +84,12 @@ class Documento extends  UrbiModel
             'note' => 'Note',
             'descrizione_en' => 'English description',
             'documento_di_riferimento_id' => 'Documento Di Riferimento ID',
-            'printDataFittizia' => ' DataFittizia?',
+            'printDataFittizia' => 'Data presunta?',
             'nomeMittenti' => 'Mittenti',
-            'nomeDestinatari' => 'destinatari',
-            'nomeInteressati' => ' interessati',
+            'nomeDestinatari' => 'Destinatari',
+            'nomeInteressati' => 'Interessati',
+            'nomeInternati' => 'Internati',
+            'tipologia.descrizione' => 'Tipologia',
         ];
     }
 
@@ -214,7 +216,7 @@ class Documento extends  UrbiModel
 
     /**
      * {@inheritdoc}
-     * @return \app\query\DocumentoQuery the active query used by this AR class.
+el     * @return \app\query\DocumentoQuery the active query used by this AR class.
      */
     public static function find()
     {
@@ -245,6 +247,14 @@ class Documento extends  UrbiModel
         $txt = [];
         foreach ($this->interessati as $dest){
             $txt[] = $dest->getNomeCompleto();
+        }
+        return implode(", ", $txt);
+    }
+    public function getNomeInternati()
+    {
+        $txt = [];
+        foreach ($this->internati as $dest){
+            $txt[] = $dest->anagrafica->getNomeCompleto();
         }
         return implode(", ", $txt);
     }

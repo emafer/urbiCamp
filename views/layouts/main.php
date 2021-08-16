@@ -87,30 +87,22 @@ AppAsset::register($this);
 
 <footer class="footer">
 
-    <div class="modal remote fade" id="modalAnagCreate">
-        <div class="modal-dialog">
-            <div class="modal-content  loader-lg"> <div class="modal-header">
-                    <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div></div>
-        </div>
-    </div>
-    <div class="modal remote fade" id="modalCreate">
-        <div class="modal-dialog">
-            <div class="modal-content  loader-lg"> <div class="modal-header">
-                    <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div></div>
-        </div>
-    </div>
 
     <div class="container">
         <p class="pull-left">&copy; Casa della Memoria - Urbisaglia <?= date('Y') ?></p>
 
     </div>
 </footer>
-<script src="/js/imageForm.js"></script>
+<script src="/web/js/imageForm.js"></script>
 <?php $this->endBody() ?>
+
+<script>
+    function pippo(id, oggetto) {
+        event.preventDefault();
+        $('#closeModal').click();
+        $('#documento-documento_di_riferimento_id').append('<option value=\"' + id + '\" selected=\"selected\">' + oggetto + '</option>');
+    }
+</script>
 </body>
 </html>
 <?php $this->endPage() ?>

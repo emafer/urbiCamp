@@ -69,14 +69,30 @@ class TipologiaController extends  UrbiCampController
     public function actionCreate()
     {
         $model = new Tipologia();
+        if ($this->isAjax()) {
+            if ($model->load(Yii::$app->request->post()) && $model->save()) {
+                Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+                return $this->asJson(['status' => true,
+                    'id' => $model->id,
+                    'fid' => Yii::$app->request->get('fid'),
+                    'nome' => $model->descrizione
+                ]);
+            }
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->renderAjax('create', [
+                'model' => $model,
+                'ajax' => true,
+                'fid' => Yii::$app->request->get('fid')
+            ]);
+        } else {
+            if ($model->load(Yii::$app->request->post()) && $model->save()) {
+                return $this->redirect(['view', 'id' => $model->id]);
+            }
+            return $this->render('create', [
+                'model' => $model,
+                'ajax' => false
+            ]);
         }
-
-        return $this->render('create', [
-            'model' => $model,
-        ]);
     }
 
     /**

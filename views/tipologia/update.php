@@ -4,6 +4,7 @@ use yii\helpers\Html;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Tipologia */
+/* @var $ajax boolean */
 
 $this->title = Yii::t('app', 'Update Tipologia: {name}', [
     'name' => $model->id,
@@ -16,8 +17,10 @@ $this->params['breadcrumbs'][] = Yii::t('app', 'Update');
 
     <h1><?= Html::encode($this->title) ?></h1>
 
+
     <?= $this->render('_form', [
         'model' => $model,
+        'ajax' => $ajax
     ]) ?>
 
 </div>

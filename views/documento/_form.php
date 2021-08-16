@@ -64,6 +64,8 @@ use yii\widgets\ActiveForm;
     <div class="row">
         <div class="col-md-6">
             <?php
+
+            $modalId = 'modalDocumento_di_riferimento_id';
             echo $form->field($model, 'documento_di_riferimento_id')->widget(Select2::class, [
                 'data' => [],
                 'options' => ['multiple'=>false, 'placeholder' => 'Cerca per oggetto'],
@@ -82,33 +84,32 @@ use yii\widgets\ActiveForm;
                     'templateResult' => new JsExpression('function(city) { return city.text; }'),
                     'templateSelection' => new JsExpression('function (city) { return city.text; }'),
                 ],
+                'addon' => [
+                    'append' => [
+                        'content' => Html::a('<i class="glyphicon glyphicon-search"></i>',
+                            \yii\helpers\Url::toRoute([
+                                '/documento/cerca',
+                                'via' => 'ajax', 'fid'=> 'documento-documento_di_riferimento_id'
+                            ]),
+                            [
+                                'class' => 'btn btn-primary',
+                                'title' => 'Cerca',
+                                'data-toggle'=>'modal',
+                                'data-target'=>'#' . $modalId,
+                            ]),
+                        'asButton' => true
+                    ],
+                ],
             ]);
+            ?><?php
+            echo \app\commands\HelperUrbiCampFormController::getEmptyModal($modalId, 'large');
             ?>
         </div>
         <div class="col-md-6">
             <?php
-            $dataList = \app\models\Tipologia::find()->andWhere(['id' => $model->tipologia_id])->all();
-            $data = \yii\helpers\ArrayHelper::map($dataList, 'id', 'descrizione');
-
-            echo $form->field($model, 'tipologia_id')->widget(Select2::classname(), [
-                'data' => $data,
-                'options' => ['multiple'=>true, 'placeholder' => 'Cerca ...'],
-                'pluginOptions' => [
-                    'allowClear' => true,
-                    'minimumInputLength' => 3,
-                    'language' => [
-                        'errorLoading' => new JsExpression("function () { return 'un istante...'; }"),
-                    ],
-                    'ajax' => [
-                        'url' => $url = \yii\helpers\Url::to(['tipologia/list']),
-                        'dataType' => 'json',
-                        'data' => new JsExpression('function(params) { return {q:params.term}; }')
-                    ],
-                    'escapeMarkup' => new JsExpression('function (markup) { return markup; }'),
-                    'templateResult' => new JsExpression('function(city) { return city.text; }'),
-                    'templateSelection' => new JsExpression('function (city) { return city.text; }'),
-                ],
-            ]);
+            $items = \yii\helpers\ArrayHelper::map(\app\models\Tipologia::find()->orderBy(['descrizione' => SORT_ASC])->all(), 'id', 'descrizione');
+            echo $form->field($model, 'tipologia_id')->dropDownList($items, ['prompt' =>'',]);
+             \app\commands\HelperUrbiCampFormController::creaCreazioneModale('tipologia_id', $model, 'tipologia');
         ?>
         </div>
         <div class="col-md-6">

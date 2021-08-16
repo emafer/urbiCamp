@@ -26,7 +26,9 @@
         "webvimark/module-user-management": "*",
         "conquer/modal": "*",
         "demogorgorn/yii2-ajax-submit-button": "*",
-        "kartik-v/yii2-widget-select2": "dev-master"
+        "kartik-v/yii2-widget-select2": "dev-master",
+        "kartik-v/yii2-grid": "dev-master",
+        "fedemotta/yii2-widget-datatables": "*"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.1.0",

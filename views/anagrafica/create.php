@@ -14,7 +14,6 @@ $this->params['breadcrumbs'][] = $this->title;
 <?php if ($ajax) {
    ?>
 <div class="modal-header">
-    <h5 class="modal-title">Creazione anagrafica</h5>
     <div class="text-right">
         <button type="button" id="closeModal" class="btn-close" data-dismiss="modal" aria-label="Close"><i class="glyphicon glyphicon-log-out"></i></button>
     </div>

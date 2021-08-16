@@ -36,8 +36,10 @@ $this->params['breadcrumbs'][] = $this->title;
             'nomeMittenti',
             'nomeDestinatari',
             'nomeInteressati',
+            'nomeInternati',
             'tipologia.descrizione',
             'descrizione',
+            'descrizione_en',
             'note'
         ],
     ]);
@@ -55,17 +57,19 @@ $this->params['breadcrumbs'][] = $this->title;
         <?php
         foreach ($model->documentoImmagini as $docImmagine) {
             $images[] = [
-                'src' => '/uploads/' . $docImmagine->immagine->path,
+                'src' => '/web/uploads/' . $docImmagine->immagine->path,
                 'title' =>  $docImmagine->immagine->descrizione,
             ];
             echo '<div class="col-sm-4">
             <div class="card">
                 <div class="card-body">
                     <h5 class="card-title">' . $docImmagine->immagine->nome . '</h5>
-                    <img src="/uploads/' . $docImmagine->immagine->path. '" class="card-img-top">
+                    <img src="/web/uploads/' . $docImmagine->immagine->path. '" class="card-img-top">
                     <p class="card-text">' . $docImmagine->immagine->descrizione . '</p>';
-
             echo '</div>
+<div class="card-footer">
+<a href="/index.php?r=documento-immagine%2Fdelete&amp;immagine_id=' .  $docImmagine->immagine_id .'&amp;documento_id=' .  $model->id .'" title="Delete" aria-label="Delete" data-pjax="0" data-confirm="Are you sure you want to delete this item?" data-method="post"><svg aria-hidden="true" style="display:inline-block;font-size:inherit;height:1em;overflow:visible;vertical-align:-.125em;width:.875em" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M32 464a48 48 0 0048 48h288a48 48 0 0048-48V128H32zm272-256a16 16 0 0132 0v224a16 16 0 01-32 0zm-96 0a16 16 0 0132 0v224a16 16 0 01-32 0zm-96 0a16 16 0 0132 0v224a16 16 0 01-32 0zM432 32H312l-9-19a24 24 0 00-22-13H167a24 24 0 00-22 13l-9 19H16A16 16 0 000 48v32a16 16 0 0016 16h416a16 16 0 0016-16V48a16 16 0 00-16-16z"></path></svg></a>
+</div>
             </div>
         </div>';
         }

@@ -65,8 +65,8 @@ class Immagine extends UrbiModel
         if ($this->validate()) {
             $nome = uniqid(). '.' . $this->path->extension;
             $this->path->saveAs(PATHURBI . '/web/uploads/' . $nome );
-            Image::thumbnail('@webroot/uploads/' . $nome, 200, 300)
-                ->save(\Yii::getAlias('@webroot/uploads/thumb-' . $nome), ['quality' => 50]);
+            Image::thumbnail(PATHURBI . '/web/uploads/' . $nome, 200, 300)
+                ->save(\Yii::getAlias(PATHURBI . '/web/uploads/thumb-' . $nome), ['quality' => 50]);
             $post = Yii::$app->request->post('Immagine');;
             $this->descrizione = filter_var( $post['descrizione'], FILTER_SANITIZE_STRING);
             $this->path = $nome;

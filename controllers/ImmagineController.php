@@ -150,7 +150,11 @@ class ImmagineController extends UrbiCampController
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post())) {
+            $model->load(Yii::$app->request->post());
+            $model->path = UploadedFile::getInstance($model, 'path');
+            $model->upload();
+            $model->save();
             return $this->redirect(['view', 'id' => $model->id]);
         }
 

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b8dac46447cc31a95b3d23d4861a44b1",
+    "content-hash": "e4a588d3a8bcc1e351684941f3d79f92",
     "packages": [
         {
             "name": "bower-asset/bootstrap",
@@ -44,6 +44,61 @@
             "license": [
                 "MIT"
             ]
+        },
+        {
+            "name": "bower-asset/datatables",
+            "version": "1.10.21",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/DataTables/DataTables.git",
+                "reference": "83e59694a105225ff889ddfa0d723a3ab24fda78"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/DataTables/DataTables/zipball/83e59694a105225ff889ddfa0d723a3ab24fda78",
+                "reference": "83e59694a105225ff889ddfa0d723a3ab24fda78"
+            },
+            "require": {
+                "bower-asset/jquery": ">=1.7.0"
+            },
+            "type": "bower-asset",
+            "license": [
+                "MIT"
+            ]
+        },
+        {
+            "name": "bower-asset/datatables-bootstrap3",
+            "version": "0.1",
+            "source": {
+                "type": "git",
+                "url": "git@github.com:Jowin/Datatables-Bootstrap3.git",
+                "reference": "06d78a732dfd1da928ff118dd26249ae94021495"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Jowin/Datatables-Bootstrap3/zipball/06d78a732dfd1da928ff118dd26249ae94021495",
+                "reference": "06d78a732dfd1da928ff118dd26249ae94021495"
+            },
+            "type": "bower-asset"
+        },
+        {
+            "name": "bower-asset/datatables-tabletools",
+            "version": "2.2.4",
+            "source": {
+                "type": "git",
+                "url": "git@github.com:DataTables/TableTools.git",
+                "reference": "5fc9d457b673fe3f2d84f32660ee74e29ce6f84e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/DataTables/TableTools/zipball/5fc9d457b673fe3f2d84f32660ee74e29ce6f84e",
+                "reference": "5fc9d457b673fe3f2d84f32660ee74e29ce6f84e"
+            },
+            "require": {
+                "bower-asset/datatables": ">=1.9.0",
+                "bower-asset/jquery": ">=1.7.0"
+            },
+            "type": "bower-asset"
         },
         {
             "name": "bower-asset/inputmask",
@@ -488,6 +543,64 @@
             "time": "2020-06-29T00:56:53+00:00"
         },
         {
+            "name": "fedemotta/yii2-widget-datatables",
+            "version": "v1.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/fedemotta/yii2-widget-datatables.git",
+                "reference": "ee0c70a038302ca414fe01d51732ed217efdc772"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/fedemotta/yii2-widget-datatables/zipball/ee0c70a038302ca414fe01d51732ed217efdc772",
+                "reference": "ee0c70a038302ca414fe01d51732ed217efdc772",
+                "shasum": ""
+            },
+            "require": {
+                "bower-asset/datatables": ">= 1.9.4",
+                "bower-asset/datatables-bootstrap3": "*",
+                "bower-asset/datatables-tabletools": "*",
+                "bower-asset/jquery": ">= 1.7.0",
+                "yiisoft/yii2": "*"
+            },
+            "type": "yii2-extension",
+            "extra": {
+                "asset-installer-paths": {
+                    "bower-asset-library": "vendor/bower"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "fedemotta\\datatables\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Federico Nicolás Motta",
+                    "email": "fedemotta@gmail.com"
+                }
+            ],
+            "description": "DataTables widget for Yii2",
+            "keywords": [
+                "datatables",
+                "extension",
+                "javascript",
+                "jquery",
+                "library",
+                "table",
+                "yii2"
+            ],
+            "support": {
+                "issues": "https://github.com/fedemotta/yii2-widget-datatables/issues?state=open",
+                "source": "https://github.com/fedemotta/yii2-widget-datatables"
+            },
+            "time": "2015-06-08T16:07:23+00:00"
+        },
+        {
             "name": "ikimea/browser",
             "version": "1.12.0",
             "source": {
@@ -843,16 +956,16 @@
         },
         {
             "name": "kartik-v/yii2-grid",
-            "version": "v3.3.5",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/kartik-v/yii2-grid.git",
-                "reference": "e4ba0c68ecb864e1a158f16cc73a5e73a6cdf7c7"
+                "reference": "1aa635faba7778d354a7a1e48c66b87744eed2af"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kartik-v/yii2-grid/zipball/e4ba0c68ecb864e1a158f16cc73a5e73a6cdf7c7",
-                "reference": "e4ba0c68ecb864e1a158f16cc73a5e73a6cdf7c7",
+                "url": "https://api.github.com/repos/kartik-v/yii2-grid/zipball/1aa635faba7778d354a7a1e48c66b87744eed2af",
+                "reference": "1aa635faba7778d354a7a1e48c66b87744eed2af",
                 "shasum": ""
             },
             "require": {
@@ -862,6 +975,7 @@
             "suggest": {
                 "kartik-v/yii2-mpdf": "For exporting grids to PDF"
             },
+            "default-branch": true,
             "type": "yii2-extension",
             "extra": {
                 "branch-alias": {
@@ -902,7 +1016,7 @@
                     "type": "open_collective"
                 }
             ],
-            "time": "2020-03-27T11:31:59+00:00"
+            "time": "2020-11-26T15:46:03+00:00"
         },
         {
             "name": "kartik-v/yii2-krajee-base",
@@ -1244,59 +1358,6 @@
                 "source": "https://github.com/select2/select2/tree/4.0.13"
             },
             "time": "2020-01-28T05:01:22+00:00"
-        },
-        {
-            "name": "slavkovrn/yii2-lightbox",
-            "version": "v1.0.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/SlavKoVrn/yii2-lightbox.git",
-                "reference": "e2bc3c51a29fda59cb710cf309bcd1b4de75c311"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/SlavKoVrn/yii2-lightbox/zipball/e2bc3c51a29fda59cb710cf309bcd1b4de75c311",
-                "reference": "e2bc3c51a29fda59cb710cf309bcd1b4de75c311",
-                "shasum": ""
-            },
-            "require": {
-                "yiisoft/yii2": "~2.0"
-            },
-            "type": "yii2-extension",
-            "extra": {
-                "asset-installer-paths": {
-                    "npm-asset-library": "vendor/npm",
-                    "bower-asset-library": "vendor/bower"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "slavkovrn\\lightbox\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "BSD-3-Clause"
-            ],
-            "authors": [
-                {
-                    "name": "Viacheslav Kolesnikov",
-                    "email": "slavko.chita@gmail.com",
-                    "homepage": "http://yii2.kadastrcard.ru"
-                }
-            ],
-            "description": "Yii2 LightBox image galary widget uses Lightbox v2.10.0 by Lokesh Dhakar",
-            "keywords": [
-                "Image galary widget",
-                "jQuery Lightbox v2.10.0 by Lokesh Dhakar",
-                "yii 2",
-                "yii2"
-            ],
-            "support": {
-                "issues": "https://github.com/SlavKoVrn/yii2-lightbox/issues",
-                "source": "https://github.com/SlavKoVrn/yii2-lightbox"
-            },
-            "time": "2018-10-14T11:49:11+00:00"
         },
         {
             "name": "swiftmailer/swiftmailer",
@@ -6818,7 +6879,8 @@
     "minimum-stability": "stable",
     "stability-flags": {
         "kartik-v/yii2-widget-fileinput": 20,
-        "kartik-v/yii2-widget-select2": 20
+        "kartik-v/yii2-widget-select2": 20,
+        "kartik-v/yii2-grid": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

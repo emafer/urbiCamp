@@ -46,7 +46,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         return Html::a('<i class="glyphicon glyphicon-list"></i>', ['fascicolo/lista', 'faldone'=>$model->id]);
                     },
                     ],
-                ],
+            ],
             ]
         ]);
     ?>
